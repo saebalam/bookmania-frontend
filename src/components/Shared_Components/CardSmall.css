@@ -1,0 +1,32 @@
+.card-small:hover{
+    transform: scale(1.03);
+    transition: 0.6s;
+}
+.heartButton{
+    color: red;
+    border: none;
+}
+.heartButton:hover{
+    transform: scale(1.2);
+}
+.cartButton:hover{
+    transform: scale(1.2);
+}
+.cartNotAdded{
+    background-color: yellow;
+}
+.cartAdded{
+    background-color: red;
+}
+button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin: 2px;
+}
+.toastButton{
+    position: absolute;
+    top:0;
+    
+    margin-left: 400px;
+}

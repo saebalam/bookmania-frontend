@@ -1,0 +1,46 @@
+
+.login form{
+    background: url('../../Assets/Images/form.jpg');
+    padding: 20px 50px;
+    box-shadow: rgba(0, 0, 0, 0.64) 0px 3px 8px;;
+}
+.login h3{
+    color: rgb(53, 52, 52);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.login label{
+    color: rgb(10, 10, 10);
+}
+
+.login button{
+    margin-top: 0.5rem;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.login .forgot-password{
+    margin-left: 7.3rem;
+    margin-bottom: 0.5rem;
+}
+.login .forgot-password a{
+    text-decoration: none;
+    color:black;
+    font-size: 0.9rem;
+}
+
+.login .form-group{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-group button{
+    cursor: pointer;
+}
+
+.form-group button:hover{
+    background-color: rgb(31, 81, 156);
+}

@@ -1,0 +1,24 @@
+.wishlist-table{
+    padding: 5px;
+    width: 65%;
+    margin: 70px auto;
+    box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
+}
+
+.wishlist-table tr{
+    border-bottom: 1px solid rgb(197, 196, 196);
+    border-top: 1px solid rgb(197, 196, 196);
+    margin: 10px 0px;
+}
+
+.img-div{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.wishlist-table tr td{
+    padding:0px 223px 0px 1px;
+}
+
+.product-img {
+    width: 100px;
+}
