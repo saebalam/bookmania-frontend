@@ -5,7 +5,12 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux'
 import filteredProducts from '../../Action_Creators/filteredProducts';
 
-function Navbar(props) {
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
+function MyNavbar(props) {
 
     const [search, setSearch] = useState("")
     const [suggestions, setSuggestions] = useState([])
@@ -48,6 +53,7 @@ function Navbar(props) {
                 <Link to='/cart' className='nav-link'>Cart</Link>
             </li>
         </ul>
+
     } else {
         button = <ul className='navbar-nav ms-auto'>
             <li className='nav-item'>
@@ -66,13 +72,29 @@ function Navbar(props) {
 
     return (
         <div>
-            <nav className='navbar navbar-expand-sm navbar-dark bg-dark fixed-top' style={{ padding: "7px" }}>
-                {/* <div className='container1'> */}
+            {/* <nav className='navbar navbar-expand-sm navbar-dark bg-dark fixed-top' style={{ padding: "7px" }}>
                 <Link to='/' className='navbar-brand'>BookMania</Link>
+                
+
+                <button className="navbar-toggler" style={{ fontSize: "0.7rem", padding: "0.5rem 0.5rem", marginTop: "0px" }} type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id='navbarNav'>
+                    {button}
+                </div>
+                
+            </nav >
+            <Outlet /> */}
+
+
+            <Navbar bg="light" expand="lg">
+
+                <Navbar.Brand><Link to='/' className='navbar-brand'>BookMania</Link></Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <div id='search' >
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={(e) => setSearch(e.target.value)} />
                     {(suggestions.length > 0) &&
-                        <div className='suggestion-box' style={{ backgroundColor: '#5c5e60', top: "45px", position: 'absolute',paddingTop:"13px", zIndex: "5" ,width:"77%"}}>
+                        <div className='suggestion-box' style={{ backgroundColor: '#5c5e60', top: "45px", position: 'absolute', paddingTop: "13px", zIndex: "5", width: "77%" }}>
                             <ul>
                                 {(suggestions.length > 0) &&
                                     suggestions.map(eachSuggestion => {
@@ -82,25 +104,22 @@ function Navbar(props) {
                                 }
                             </ul>
                         </div>
-
                     }
                 </div>
 
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        {/* <Nav.Link href="#home">Home</Nav.Link>
+                            <Nav.Link href="#link">Link</Nav.Link> */}
+                        {button}
+                    </Nav>
+                </Navbar.Collapse>
+
+            </Navbar>
 
 
-
-
-                <button className="navbar-toggler" style={{ fontSize: "0.7rem", padding: "0.5rem 0.5rem", marginTop: "0px" }} type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id='navbarNav'>
-                    {button}
-                </div>
-                {/* </div> */}
-            </nav >
-            {/* <Outlet /> */}
         </div>
     )
 }
 
-export default Navbar
+export default MyNavbar

@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import Navbar from './components/Header/Navbar';
+import MyNavbar from './components/Header/MyNavbar';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
@@ -60,7 +60,7 @@ function App() {
       <div className="App">
       <Router>
         {}
-        <Navbar userData={userData} />
+        <MyNavbar userData={userData} />
         <Routes>
           <Route exact path='/' element={<Home userData={userData} />} />
           <Route exact path='/login' element={<Login userData={userData} setUser={setUser} />} />

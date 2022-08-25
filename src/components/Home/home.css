@@ -1,3 +1,12 @@
+.login-text{
+    position: absolute;
+    top: 200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .wrapper{
     margin-top: -40px;
     

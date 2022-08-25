@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState, useEffect, useRef, CSSProperties } from 'react'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import '../../../node_modules/jquery/dist/jquery'
 import ScaleLoader from "react-spinners/ScaleLoader";
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
@@ -92,7 +93,7 @@ const Home = React.memo(({ userData }) => {
     // console.log("bbj",featuredProducts);
 
     return (
-        <div style={{ marginTop: '100px' }}>
+        <div style={{ marginTop: '50px' }}>
             {console.log("in return")}
             {console.log(location)}
             {(spinner == true)
@@ -106,7 +107,7 @@ const Home = React.memo(({ userData }) => {
 
                         ?
 
-                        <div>
+                        <div className='login-text'>
                             <h1><Link to='/login'>Please Login</Link></h1>
                             {/* {<Navigate to='/login' replace={true} />}  */}
                         </div>

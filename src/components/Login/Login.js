@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom'
 import Home from '../Home/Home'
 import google_signin from '../../Assets/Images/google_signin.png'
 import {useFormik} from 'formik'
+import { faUserLarge } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import user from '../../Assets/Images/user.png'
 
 const validate = values => {
     const errors = {};
@@ -68,39 +71,39 @@ function Login(props) {
     })
 
     return (
-        <div className='login' style={{ marginTop: '100px', margnBottom: "20px" }}>
+        <div className='login' >
             {isLoggedin &&
-                <div>
-                    <form onSubmit={handleForm} className='m-auto col-lg-3'>
-                        <h3>Login</h3>
+                <div className='form-container'>
+                    <form onSubmit={handleForm} className='col-lg-3'>
+                        <div style={{width:'55px',margin:'0 auto',height:'55px',padding:'9px',border:'2px solid #959191',borderRadius:'50%'}}><FontAwesomeIcon icon={faUserLarge} size='2x' style={{filter:'invert(60%)'}} /></div>
                         <div className="form-group">
-                            <label htmlFor="email" className=''>Email</label>
+                            
                             <input type="email" className='form-control' name="email" id="" placeholder='Enter email or number'
                                 value={formik.values.email} onBlur={formik.handleBlur} onChange={formik.handleChange} />
-                                {formik.touched.email && formik.errors.email ? <div style={{color:"#bd0707"}}>{formik.errors.email}</div> : null}
+                                {formik.touched.email && formik.errors.email ? <div style={{color:"red"}}>{formik.errors.email}</div> : null}
                         </div>
                         <div className="form-group">
-                            <label htmlFor="">Password</label>
+                            
                             <input type="password" className='form-control' name="password" id="" placeholder='Enter your password'
                                 value={formik.values.password} onBlur={formik.handleBlur} onChange={formik.handleChange} />
-                            {formik.touched.password && formik.errors.password ? <div style={{color:"#bd0707"}}>{formik.errors.password}</div> : null}
-                            <div className="forgot-password"><Link replace to='/register'>Forgot Password ?</Link></div>
+                            {formik.touched.password && formik.errors.password ? <div style={{color:"red"}}>{formik.errors.password}</div> : null}
+                            <div className="forgot-password" style={{marginTop:'3px'}}><Link replace to='/register' style={{color:'blue'}}>Forgot Password ?</Link></div>
                         </div>
-                        <div className="form-group" id='login-btn'>
-                            <button className='btn btn-primary' >Submit</button>
+                        <div className="form-group">
+                            <button id='login-btn'>SUBMIT</button>
                         </div>
                         <hr></hr>
-                        <div className="signup" style={{ marginTop: "3rem" }}>
+                        <div className="signup" style={{ marginTop: "2rem" }}>
                             <div><h6>Or</h6></div>
                             <div>
                                 <div><a href="#"><img src={google_signin} alt="" style={{ width: "10rem", height: "2rem" }} /></a></div>
                             </div>
                             <div>
                                 <Link replace to='/register' style={{ color: "black" }}>SIGN UP</Link>
-                                <button >click</button>
                             </div>
                         </div>
                     </form>
+                
                 </div>
             }
 

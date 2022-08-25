@@ -1,8 +1,23 @@
-
+.form-container{
+    background: url('https://images.unsplash.com/photo-1625225233840-695456021cde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 50px 0;
+}
 .login form{
-    background: url('../../Assets/Images/form.jpg');
+    margin: 0 auto;
+    background-color: transparent;
     padding: 20px 50px;
-    box-shadow: rgba(0, 0, 0, 0.64) 0px 3px 8px;;
+    border-radius: 5px;
+    box-shadow: rgba(31, 30, 30, 0.521) 0px 3px 8px;
+}
+.login form input{
+  padding: 5px;
+  padding-left: 20px;
+  height: 40px;
+  font-size: 14px;
+  /* border-radius: 50px; */
+  /* box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white; */
 }
 .login h3{
     color: rgb(53, 52, 52);
@@ -13,10 +28,18 @@
     color: rgb(10, 10, 10);
 }
 
-.login button{
-    margin-top: 0.5rem;
-    margin: 0 auto;
+#login-btn{
+    background:#0000009c;
+    width:100%;
+    color:white;
+    border:1px solid #b8bddf;
     border-radius: 5px;
+    padding: 5px 10px;
+    font-size:15px;
+    letter-spacing:1.5px;
+}
+#login-btn:hover{
+    background: black;
 }
 
 .login .forgot-password{
@@ -30,7 +53,7 @@
 }
 
 .login .form-group{
-    margin-top: 10px;
+    margin-top: 20px;
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
