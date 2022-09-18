@@ -16,6 +16,7 @@ import Cart from './components/Cart/Cart';
 import Wishlist from './components/Wishlist/Wishlist';
 import ProductsList from './components/Home/FeaturedProducts.js/ProductsList/ProductsList';
 
+
 function App() {
 
   // store.subscribe(()=>console.log("store",store.getState()))
@@ -69,6 +70,7 @@ function App() {
           <Route exact path='/cart' element={<Cart />} />
           <Route exact path='register' element={<Register />} />
           <Route exact path='/productsList/:productName' element={<ProductsList />} />
+          <Route path='/*' element={<Error />} />
         </Routes>
       </Router>
       
