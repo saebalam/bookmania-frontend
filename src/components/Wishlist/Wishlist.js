@@ -28,6 +28,9 @@ const Wishlist = () => {
 
     return (
         <div>
+            <div className='myBreadcrumb'>
+                <Link to='/' className='link'>Home / </Link><Link to='/productsList/1' className='link'>Products / </Link><span> ProductName</span>
+            </div>
             {console.log("wish length",wishlistItems.length)}
             {(wishlistItems.length==0) &&
                 <div style={{marginTop:"70px"}}>

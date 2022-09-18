@@ -10,6 +10,7 @@ import {Provider} from 'react-redux'
 
 
 axios.defaults.baseURL='https://bookmania-1.herokuapp.com'
+// axios.defaults.baseURL='http://localhost:5000'
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 

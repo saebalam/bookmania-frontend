@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef, CSSProperties } from 'react'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../../../node_modules/jquery/dist/jquery'
 import ScaleLoader from "react-spinners/ScaleLoader";
+import FeaturedProducts from './FeaturedProducts.js/FeaturedProducts';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import homePageProducts from '../../Action_Creators/homePageProducts'
@@ -62,16 +63,15 @@ const Home = React.memo(({ userData }) => {
             axios.get('user/featuredProducts')
                 .then(res => {
                     setSpinner(false)
-                    const isLoggedin = localStorage.getItem('token')
-                    if (isLoggedin === "true") {
-                        console.log("in fetch");
-                        console.log("resdata", featuredProductsObject.featuredProducts);
-                        if (featuredProductsObject.featuredProducts.length < 1) { //workaround for stop re-rendering of home
-                            res.data.forEach(obj => dispatch(homePageProducts(obj)))
-                            setSpinner(false)
-                        }
-
+                    // const isLoggedin = localStorage.getItem('token')
+                    console.log("in fetch");
+                    console.log("resdata", featuredProductsObject.featuredProducts);
+                    if (featuredProductsObject.featuredProducts.length < 1) { //workaround for stop re-rendering of home
+                        res.data.forEach(obj => dispatch(homePageProducts(obj)))
+                        setSpinner(false)
                     }
+
+
                 }
                 )
         }
@@ -103,105 +103,88 @@ const Home = React.memo(({ userData }) => {
                 </div>
                 :
                 <div>
-                    {(localStorage.getItem('token') == null)
+                    {/* <div className='login-text'>
+                        <h1><Link to='/login'>Please Login</Link></h1>
+                        
+                    </div> */}
 
-                        ?
+                    <div className='wrapper' >
 
-                        <div className='login-text'>
-                            <h1><Link to='/login'>Please Login</Link></h1>
-                            {/* {<Navigate to='/login' replace={true} />}  */}
+                        <Carousel>
+                            <Carousel.Item>
+                                <img
+                                    className="d-block w-100"
+                                    src={carousel1}
+                                    alt="First slide"
+                                />
+                                <Carousel.Caption>
+
+                                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum &#9733; .</p>
+                                </Carousel.Caption>
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <img
+                                    className="d-block w-100"
+                                    src={carousel2}
+                                    alt="Second slide"
+                                />
+
+                                <Carousel.Caption>
+
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </Carousel.Caption>
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <img
+                                    className="d-block w-100"
+                                    src={carousel4}
+                                    alt="Third slide"
+                                />
+
+                                <Carousel.Caption>
+
+                                    <p>
+                                        Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                                    </p>
+                                </Carousel.Caption>
+                            </Carousel.Item>
+                        </Carousel>
+
+                        <div>
+                            <ul className='ribbon'>
+                                <Dropdown>
+                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                        Category
+                                    </Dropdown.Toggle>
+
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item href="#/action-1">Accessories</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-2">Books</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-3">Computers</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-3">Disks</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-3">Electronics</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-3">Fans</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-3">Games</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-3">Home accessories</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                                <li><Link to='#'>Recommended For You</Link></li>
+                                <li><Link to='#'>Today's Deal</Link></li>
+                                <li><Link to='#'>Help</Link></li>
+                            </ul>
                         </div>
 
-                        :
-
-
-                        <div className='wrapper' >
-
-                            <Carousel>
-                                <Carousel.Item>
-                                    <img
-                                        className="d-block w-100"
-                                        src={carousel1}
-                                        alt="First slide"
-                                    />
-                                    <Carousel.Caption>
-
-                                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum &#9733; .</p>
-                                    </Carousel.Caption>
-                                </Carousel.Item>
-                                <Carousel.Item>
-                                    <img
-                                        className="d-block w-100"
-                                        src={carousel2}
-                                        alt="Second slide"
-                                    />
-
-                                    <Carousel.Caption>
-
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                    </Carousel.Caption>
-                                </Carousel.Item>
-                                <Carousel.Item>
-                                    <img
-                                        className="d-block w-100"
-                                        src={carousel4}
-                                        alt="Third slide"
-                                    />
-
-                                    <Carousel.Caption>
-
-                                        <p>
-                                            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                                        </p>
-                                    </Carousel.Caption>
-                                </Carousel.Item>
-                            </Carousel>
-
-                            <div>
-                                <ul className='ribbon'>
-                                        <Dropdown>
-                                            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                Category
-                                            </Dropdown.Toggle>
-
-                                            <Dropdown.Menu>
-                                                <Dropdown.Item href="#/action-1">Accessories</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-2">Books</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-3">Computers</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-3">Disks</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-3">Electronics</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-3">Fans</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-3">Games</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-3">Home accessories</Dropdown.Item>
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                    <li><Link to='#'>Recommended For You</Link></li>
-                                    <li><Link to='#'>Today's Deal</Link></li>
-                                    <li><Link to='#'>Help</Link></li>
-                                </ul>
+                        {/* Featured products */}
+                        {/* <button onClick={()=>dispatch(fetchUser())}>click</button> */}
+                        <div >
+                            <div className='featuredProductsHeading'>
+                                <h5>Featured Products</h5>
                             </div>
-
-                            {/* Featured products */}
-                            {/* <button onClick={()=>dispatch(fetchUser())}>click</button> */}
-                            <div >
-                                <div className='featuredProductsHeading'>
-                                    <h5>Featured Products</h5>
-                                </div>
-                                <div className='featured-products-container'>
-                                    {(featuredProductsObject.featuredProducts) && (
-
-                                        featuredProductsObject.featuredProducts.map((product) => {
-                                            // console.log("product",product);
-                                            const { id, title, src, rating, price } = product
-                                            return <CardSmall props={{ id, title, src, rating, price }} />
-                                        }))
-                                    }
-                                </div>
+                            <div className='featured-products-container'>
+                                <FeaturedProducts />
                             </div>
-
                         </div>
-
-                    }
+                    </div>
                 </div>
             }
         </div >

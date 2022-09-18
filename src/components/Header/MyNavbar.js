@@ -71,7 +71,7 @@ function MyNavbar(props) {
 
 
     return (
-        <div>
+        <div style={{position:'sticky',top:'0px',zIndex:'3'}}>
             {/* <nav className='navbar navbar-expand-sm navbar-dark bg-dark fixed-top' style={{ padding: "7px" }}>
                 <Link to='/' className='navbar-brand'>BookMania</Link>
                 
@@ -87,9 +87,9 @@ function MyNavbar(props) {
             <Outlet /> */}
 
 
-            <Navbar bg="light" expand="lg">
+            <Navbar bg="light" expand="lg" >
 
-                <Navbar.Brand><Link to='/' className='navbar-brand'>BookMania</Link></Navbar.Brand>
+                <Navbar.Brand style={{color:'#ed4a6f'}}><Link to='/' className='navbar-brand' >BookMania</Link></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <div id='search' >
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={(e) => setSearch(e.target.value)} />

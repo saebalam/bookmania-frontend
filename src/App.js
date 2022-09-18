@@ -14,12 +14,14 @@ import  store  from './store';
 import Tempp from './components/Tempp';
 import Cart from './components/Cart/Cart';
 import Wishlist from './components/Wishlist/Wishlist';
+import ProductsList from './components/Home/FeaturedProducts.js/ProductsList/ProductsList';
 
 function App() {
 
   // store.subscribe(()=>console.log("store",store.getState()))
   const [userData, setUserData] = useState(null)                  //to check a user is loggedin
   const [featuredProducts,setFeaturedProducts] = useState(null)
+  const [count,setCount]=useState(0);
  
   const setUser=(user)=>{
     setUserData(user)
@@ -59,7 +61,6 @@ function App() {
     
       <div className="App">
       <Router>
-        {}
         <MyNavbar userData={userData} />
         <Routes>
           <Route exact path='/' element={<Home userData={userData} />} />
@@ -67,8 +68,10 @@ function App() {
           <Route exact path='/wishlist' element={<Wishlist />} />
           <Route exact path='/cart' element={<Cart />} />
           <Route exact path='register' element={<Register />} />
+          <Route exact path='/productsList/:productName' element={<ProductsList />} />
         </Routes>
       </Router>
+      
     </div>
   );
 }

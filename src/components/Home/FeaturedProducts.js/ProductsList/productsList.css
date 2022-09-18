@@ -1,0 +1,17 @@
+.productsListContainer{
+    display: flex;
+    flex-wrap: wrap;
+}
+.myBreadcrumb{
+    text-align: left;
+    font-size: 13px;
+    margin: 5px 5px;
+}
+
+.myBreadcrumb .link{
+    text-decoration: none;
+    color: rgba(128, 128, 128, 0.596);
+}
+.myBreadcrumb span{
+    color: rgb(128, 128, 128);
+}
