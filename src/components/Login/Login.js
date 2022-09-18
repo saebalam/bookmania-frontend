@@ -96,7 +96,7 @@ function Login(props) {
                         <div className="signup" style={{ marginTop: "1.5rem" }}>
                             <div><h6>Or</h6></div>
                             <div style={{display:"flex",justifyContent:"center",height:'2rem',marginBottom:'5px'}}>
-                                <div class="g-signin2" data-onsuccess="onSignIn">Signin</div>
+                                <div className="g-signin2" dataOnSuccess="onSignIn">Signin</div>
                             </div>
                             <div>
                                 <Link replace to='/register' style={{ color: "black" }}>SIGN UP</Link>
