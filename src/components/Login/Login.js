@@ -96,7 +96,6 @@ function Login(props) {
                         <div className="signup" style={{ marginTop: "1.5rem" }}>
                             <div><h6>Or</h6></div>
                             <div style={{display:"flex",justifyContent:"center",height:'2rem',marginBottom:'5px'}}>
-                                {/* <div><a href="#"><img src={google_signin} alt="" style={{ width: "10rem", height: "2rem" }} /></a></div> */}
                                 <div class="g-signin2" data-onsuccess="onSignIn"></div>
                             </div>
                             <div>
