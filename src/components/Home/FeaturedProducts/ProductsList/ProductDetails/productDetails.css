@@ -1,0 +1,4 @@
+.listOfProducts{
+    display: flex;
+    flex-wrap: wrap;
+}

@@ -5,6 +5,7 @@ nav{
 
 nav #search{
     width: 90%;
+    margin-right: 5px;
 }
 .suggestion-box ul{
     margin-bottom: 0.6rem;
@@ -15,7 +16,7 @@ nav #search{
     list-style-type: none;
     width: 100px;
     color: white;
-    line-height: 0px;
+    /* line-height: 10px; */
     text-align: left;
     /* border: 1px solid red; */
 }
@@ -31,3 +32,13 @@ nav #search{
     width: 50%;
     margin-left: 8rem;
 } */
+
+#navlink:hover{
+    background-color: #ed4a6f;
+    color: white;
+}
+
+.search-li:hover{
+    color: #ed4a6f;
+    cursor: pointer;
+}

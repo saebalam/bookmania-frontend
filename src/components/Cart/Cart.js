@@ -9,8 +9,24 @@ import card from '../../Assets/Images/card.jpg'
 import empty_cart from '../../Assets/Images/empty_cart2.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faSquareMinus, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion/dist/framer-motion'
+
+const blackBox = {
+    initial: {
+        opacity: 0,
+    },
+    animate: {
+        opacity: 1,
+        transition: {
+            duration: 1,
+            ease: [0.6, -0.05, 0.01, 0.99],
+        },
+    },
+};
 
 const Cart = () => {
+    const nav = useNavigate()
     const [cartItems, setCartItems] = useState([])
     // const [cartSize,setCartSize]=useState(cartItems.length)
     const [refreshCart, setRefreshCart] = useState(cartItems.length)
@@ -22,7 +38,8 @@ const Cart = () => {
 
     useEffect(() => {
 
-        axios.get('/cart')
+        axios.post('/cart', { accessToken: localStorage.getItem('accesstoken') },
+            { headers: { 'Content-Type': 'application/json' } })
             .then(
                 res => {
                     console.log("res", res.data);
@@ -30,6 +47,11 @@ const Cart = () => {
                     setRefreshCart(cartItems.length + 1)
                 }
             )
+            .catch(error => {
+                console.log("error", error)
+                nav('/login')
+                window.history.pushState({}, undefined, "/cart");
+            })
 
         axios.get('/getTotalPrice')
             .then(res => {
@@ -69,115 +91,122 @@ const Cart = () => {
     }
 
     return (
-        <div className='main-div' style={{background:'#f8f8f8'}}>
-            {(cartItems.length === 0)
-                ?
-                <div style={{ margin: "0 auto" }}>
-                    {/* <div>
+        <motion.div
+            className="relative z-50 w-full"
+            initial="initial"
+            animate="animate"
+            variants={blackBox}>
+
+            <div className='main-div' style={{ background: '#f8f8f8' }}>
+                {(cartItems.length === 0)
+                    ?
+                    <div style={{ margin: "0 auto" }}>
+                        {/* <div>
                         <h2>Cart is Empty !!!!</h2>
                         <h4>Please add something to cart :)</h4>
                     </div> */}
-                    <div>
-                        <img src={empty_cart} alt="" style={{background:'white',height:'22rem'}} />
+                        <div>
+                            <img src={empty_cart} alt="" style={{ background: 'white', height: '22rem' }} />
+                        </div>
+                        <Link to='/' style={{ color: 'black' }}>Let's go Shopping !!! </Link>
                     </div>
-                        <Link to='/' style={{color:'black'}}>Let's go Shopping !!! </Link>
-                </div>
-                :
-                <div className=''>
-                    <div className='submain-div'>
-                        <table>
-                            <tr className='table-heading'>
-                                <th>Product</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>remove</th>
-                            </tr>
+                    :
+                    <div className=''>
+                        <div className='submain-div'>
+                            <table>
+                                <tr className='table-heading'>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>remove</th>
+                                </tr>
 
 
-                            {cartItems.map((cartItem) => {
-                                return <tr key={cartItem.id} className="cartCard">
+                                {cartItems.map((cartItem) => {
+                                    return <tr key={cartItem.id} className="cartCard">
 
-                                    <td className='td1'>
-                                        {/* {console.log("props", props.props)} */}
-                                        <div >
-                                            <img src={card} alt="" />
-                                        </div>
-
-                                        <div className="my-list-group-flush">
-                                            <div>{cartItem.title}</div>
-                                            <div style={{ display: 'flex' }}>
-                                                {
-                                                    new Array(parseInt(cartItem.rating)).fill(0).map(item => {
-                                                        return <div>&#9733;</div>
-                                                    })
-                                                }
+                                        <td className='td1'>
+                                            {/* {console.log("props", props.props)} */}
+                                            <div >
+                                                <img src={card} alt="" />
                                             </div>
 
-                                        </div>
-                                    </td>
+                                            <div className="my-list-group-flush">
+                                                <div>{cartItem.title}</div>
+                                                <div style={{ display: 'flex' }}>
+                                                    {
+                                                        new Array(parseInt(cartItem.rating)).fill(0).map(item => {
+                                                            return <div>&#9733;</div>
+                                                        })
+                                                    }
+                                                </div>
 
-                                    <td className='td2'>
-                                        <div style={{ display: 'flex' }} className="quantity">
-                                            <button onClick={() => decreaseQuantity(cartItem.id)}><FontAwesomeIcon icon={faSquareMinus} /></button>
-                                            <input type="text" name="" id="" value={cartItem.quantity} style={{ width: '45px', lineHeight: '3px', margin: "0px 5px" }} />
-                                            <button onClick={() => increaseQuantity(cartItem.id)}><FontAwesomeIcon icon={faSquarePlus} /></button>
-                                        </div>
-                                    </td>
-                                    <td className='td3'>
-                                        <div className='amount'>
-                                            &#8377; {cartItem.price}
-                                        </div>
-                                    </td>
-                                    <td className='td4'>
-                                        <div >
-                                            <button onClick={() => handleRemoveFromCart(cartItem.id)} className="removeBtn"><FontAwesomeIcon icon={faTrash} /> </button>
-                                        </div>
-                                    </td>
+                                            </div>
+                                        </td>
+
+                                        <td className='td2'>
+                                            <div style={{ display: 'flex' }} className="quantity">
+                                                <button onClick={() => decreaseQuantity(cartItem.id)}><FontAwesomeIcon icon={faSquareMinus} /></button>
+                                                <input type="text" name="" id="" value={cartItem.quantity} style={{ width: '45px', lineHeight: '3px', margin: "0px 5px" }} />
+                                                <button onClick={() => increaseQuantity(cartItem.id)}><FontAwesomeIcon icon={faSquarePlus} /></button>
+                                            </div>
+                                        </td>
+                                        <td className='td3'>
+                                            <div className='amount'>
+                                                &#8377; {cartItem.price}
+                                            </div>
+                                        </td>
+                                        <td className='td4'>
+                                            <div >
+                                                <button onClick={() => handleRemoveFromCart(cartItem.id)} className="removeBtn"><FontAwesomeIcon icon={faTrash} /> </button>
+                                            </div>
+                                        </td>
 
 
 
-                                </tr>
-                            }
-                            )}
+                                    </tr>
+                                }
+                                )}
 
-                        </table>
+                            </table>
 
-                        <div className='right'>
-                            <div className="coupon">
-                                <label htmlFor="couponCode">Have a coupon ?</label>
-                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    <input type="text" name="" id="" placeholder='Coupon Code' />
-                                    <button className='btn btn-primary s-sm'>APPLY</button>
+                            <div className='right'>
+                                <div className="coupon">
+                                    <label htmlFor="couponCode">Have a coupon ?</label>
+                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                        <input type="text" name="" id="" placeholder='Coupon Code' />
+                                        <button className='btn btn-primary s-sm'>APPLY</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="payment">
-                                <div>
-                                    <p>Total Price :</p>
-                                    <p>&#8377; {totalPrice}</p>
-                                </div>
-                                <div>
-                                    <p>Discount</p>
-                                    <p>&#8377; {discount}</p>
-                                </div>
-                                <div>
-                                    <p>Total</p>
-                                    <p>&#8377; {totalPrice - discount}</p>
+                                <div className="payment">
+                                    <div>
+                                        <p>Total Price :</p>
+                                        <p>&#8377; {totalPrice}</p>
+                                    </div>
+                                    <div>
+                                        <p>Discount</p>
+                                        <p>&#8377; {discount}</p>
+                                    </div>
+                                    <div>
+                                        <p>Total</p>
+                                        <p>&#8377; {totalPrice - discount}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div className='purchase'>
+                            <Link exact to='/'>Continue Shopping</Link>
+                            <button className='btn btn-primary'>Purchase</button>
+                        </div>
+
                     </div>
 
-                    <div className='purchase'>
-                        <Link exact to='/'>Continue Shopping</Link>
-                        <button className='btn btn-primary'>Purchase</button>
-                    </div>
-
-                </div>
 
 
-
-            }
-        </div>
+                }
+            </div>
+        </motion.div>
     )
 }
 

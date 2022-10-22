@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, CSSProperties } from 'react'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../../../node_modules/jquery/dist/jquery'
 import ScaleLoader from "react-spinners/ScaleLoader";
-import FeaturedProducts from './FeaturedProducts.js/FeaturedProducts';
+import FeaturedProducts from './FeaturedProducts/FeaturedProducts';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import homePageProducts from '../../Action_Creators/homePageProducts'
@@ -20,6 +20,8 @@ import CardSmall from '../Shared_Components/CardSmall';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import Footer from '../Footer/Footer';
+import { motion } from 'framer-motion/dist/framer-motion'
 
 const override: CSSProperties = {
     position: "relative",
@@ -27,6 +29,19 @@ const override: CSSProperties = {
     margin: "0 auto",
     borderColor: "red",
 
+};
+
+const blackBox = {
+    initial: {
+        opacity: 0,
+    },
+    animate: {
+        opacity: 1,
+        transition: {
+            duration: 1,
+            ease: [0.6, -0.05, 0.01, 0.99],
+        },
+    },
 };
 
 const Home = React.memo(({ userData }) => {
@@ -64,13 +79,11 @@ const Home = React.memo(({ userData }) => {
                 .then(res => {
                     setSpinner(false)
                     // const isLoggedin = localStorage.getItem('token')
-                    console.log("in fetch");
-                    console.log("resdata", featuredProductsObject.featuredProducts);
+
                     if (featuredProductsObject.featuredProducts.length < 1) { //workaround for stop re-rendering of home
                         res.data.forEach(obj => dispatch(homePageProducts(obj)))
                         setSpinner(false)
                     }
-
 
                 }
                 )
@@ -87,107 +100,115 @@ const Home = React.memo(({ userData }) => {
 
     }, [search])
 
-
-
-
     // console.log("bbj",featuredProducts);
 
     return (
-        <div style={{ marginTop: '50px' }}>
-            {console.log("in return")}
-            {console.log(location)}
-            {(spinner == true)
-                ?
-                <div>
-                    <ScaleLoader color="blue" loading={spinner} cssOverride={override} size={150} />
-                </div>
-                :
-                <div>
-                    {/* <div className='login-text'>
+        <motion.div
+            initial="initial"
+            animate="animate"
+            variants={blackBox}>
+
+
+
+            <div style={{ marginTop: '120px' }}>
+
+                {(spinner == true)
+                    ?
+                    <div>
+                        <ScaleLoader color="blue" loading={spinner} cssOverride={override} size={150} />
+                    </div>
+                    :
+                    <div>
+                        {/* <div className='login-text'>
                         <h1><Link to='/login'>Please Login</Link></h1>
                         
                     </div> */}
 
-                    <div className='wrapper' >
+                        <div className='wrapper' >
 
-                        <Carousel>
-                            <Carousel.Item>
-                                <img
-                                    className="d-block w-100"
-                                    src={carousel1}
-                                    alt="First slide"
-                                />
-                                <Carousel.Caption>
+                            <Carousel>
+                                <Carousel.Item>
+                                    <img
+                                        className="d-block w-100"
+                                        src={carousel1}
+                                        alt="First slide"
+                                    />
+                                    <Carousel.Caption>
 
-                                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum &#9733; .</p>
-                                </Carousel.Caption>
-                            </Carousel.Item>
-                            <Carousel.Item>
-                                <img
-                                    className="d-block w-100"
-                                    src={carousel2}
-                                    alt="Second slide"
-                                />
+                                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum &#9733; .</p>
+                                    </Carousel.Caption>
+                                </Carousel.Item>
+                                <Carousel.Item>
+                                    <img
+                                        className="d-block w-100"
+                                        src={carousel2}
+                                        alt="Second slide"
+                                    />
 
-                                <Carousel.Caption>
+                                    <Carousel.Caption>
 
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </Carousel.Caption>
-                            </Carousel.Item>
-                            <Carousel.Item>
-                                <img
-                                    className="d-block w-100"
-                                    src={carousel4}
-                                    alt="Third slide"
-                                />
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    </Carousel.Caption>
+                                </Carousel.Item>
+                                <Carousel.Item>
+                                    <img
+                                        className="d-block w-100"
+                                        src={carousel4}
+                                        alt="Third slide"
+                                    />
 
-                                <Carousel.Caption>
+                                    <Carousel.Caption>
 
-                                    <p>
-                                        Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                                    </p>
-                                </Carousel.Caption>
-                            </Carousel.Item>
-                        </Carousel>
+                                        <p>
+                                            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                                        </p>
+                                    </Carousel.Caption>
+                                </Carousel.Item>
+                            </Carousel>
 
-                        <div>
-                            <ul className='ribbon'>
-                                <Dropdown>
-                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                        Category
-                                    </Dropdown.Toggle>
+                            <div>
+                                <ul className='ribbon'>
+                                    <Dropdown>
+                                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                            Category
+                                        </Dropdown.Toggle>
 
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item href="#/action-1">Accessories</Dropdown.Item>
-                                        <Dropdown.Item href="#/action-2">Books</Dropdown.Item>
-                                        <Dropdown.Item href="#/action-3">Computers</Dropdown.Item>
-                                        <Dropdown.Item href="#/action-3">Disks</Dropdown.Item>
-                                        <Dropdown.Item href="#/action-3">Electronics</Dropdown.Item>
-                                        <Dropdown.Item href="#/action-3">Fans</Dropdown.Item>
-                                        <Dropdown.Item href="#/action-3">Games</Dropdown.Item>
-                                        <Dropdown.Item href="#/action-3">Home accessories</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                                <li><Link to='#'>Recommended For You</Link></li>
-                                <li><Link to='#'>Today's Deal</Link></li>
-                                <li><Link to='#'>Help</Link></li>
-                            </ul>
-                        </div>
-
-                        {/* Featured products */}
-                        {/* <button onClick={()=>dispatch(fetchUser())}>click</button> */}
-                        <div >
-                            <div className='featuredProductsHeading'>
-                                <h5>Featured Products</h5>
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item href="#/action-1">Accessories</Dropdown.Item>
+                                            <Dropdown.Item href="#/action-2">Books</Dropdown.Item>
+                                            <Dropdown.Item href="#/action-3">Computers</Dropdown.Item>
+                                            <Dropdown.Item href="#/action-3">Disks</Dropdown.Item>
+                                            <Dropdown.Item href="#/action-3">Electronics</Dropdown.Item>
+                                            <Dropdown.Item href="#/action-3">Fans</Dropdown.Item>
+                                            <Dropdown.Item href="#/action-3">Games</Dropdown.Item>
+                                            <Dropdown.Item href="#/action-3">Home accessories</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                    <li><Link to='#'>Recommended For You</Link></li>
+                                    <li><Link to='#'>Today's Deal</Link></li>
+                                    <li><Link to='#'>Help</Link></li>
+                                </ul>
                             </div>
-                            <div className='featured-products-container'>
-                                <FeaturedProducts />
+
+                            {/* Featured products */}
+                            {/* <button onClick={()=>dispatch(fetchUser())}>click</button> */}
+                            <div >
+                                <div className='featuredProductsHeading'>
+                                    <h5>Featured Products</h5>
+                                </div>
+                                <div className='featured-products-container'>
+                                    <FeaturedProducts />
+                                </div>
                             </div>
                         </div>
                     </div>
+                }
+
+                <div>
+                    <Footer />
                 </div>
-            }
-        </div >
+            </div >
+        </motion.div>
     )
 })
 

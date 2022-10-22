@@ -8,20 +8,48 @@ import filteredProducts from '../../Action_Creators/filteredProducts';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import Dropdown from 'react-bootstrap/NavDropdown';
+import DropdownMenu from 'react-bootstrap/NavDropdown';
+import NavLink from 'react-bootstrap/NavDropdown';
+import { createBrowserHistory } from '@remix-run/router';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion/dist/framer-motion'
+
+const blackBox = {
+    initial: {
+        opacity: 0,
+    },
+    animate: {
+        opacity: 1,
+        transition: {
+            duration: 1,
+            ease: [0.6, -0.05, 0.01, 0.99],
+        },
+    },
+};
 
 function MyNavbar(props) {
 
     const [search, setSearch] = useState("")
     const [suggestions, setSuggestions] = useState([])
+    const [inputFocus, setInputFocus] = useState(true)
+    const [logged, setLogged] = useState(localStorage.getItem('accesstoken'))
     const dispatch = useDispatch()
+    const nav = useNavigate()
+
 
     let button;
     console.log("userData is", props.userData)
 
     const logout = () => {
-        localStorage.removeItem('token')
+        localStorage.removeItem('accesstoken')
         props.setUser(null)
+    }
+
+    const onSearchItemClick = (productName) => {
+        console.log('searched clicked is', productName);
+        nav(`/productsList/${productName}`)
+        setInputFocus(false)
     }
 
     useEffect(() => {
@@ -41,29 +69,29 @@ function MyNavbar(props) {
 
 
 
-    if (props.userData) {
+    if (props.userData || logged != null) {
         button = <ul className='navbar-nav ms-auto'>
             <li className='nav-item'>
-                <Link to="/" onClick={logout} className='nav-link'>Logout</Link>
+                <Link to="/" onClick={logout} className='nav-link' id='navlink'>Logout</Link>
             </li>
             <li className='nav-item'>
-                <Link to='/wishlist' className='nav-link'>Wishlist</Link>
+                <Link to='/wishlist' className='nav-link' id='navlink'>Wishlist</Link>
             </li>
             <li className='nav-item'>
-                <Link to='/cart' className='nav-link'>Cart</Link>
+                <Link to='/cart' className='nav-link' id='navlink'>Cart</Link>
             </li>
         </ul>
 
     } else {
         button = <ul className='navbar-nav ms-auto'>
             <li className='nav-item'>
-                <Link to="/login" className='nav-link'>Login</Link>
+                <Link to="/login" className='nav-link' id='navlink'>Login</Link>
             </li>
             <li className='nav-item'>
-                <Link to='/wishlist' className='nav-link'>Wishlist</Link>
+                <Link to='/wishlist' className='nav-link' id='navlink'>Wishlist</Link>
             </li>
             <li className='nav-item'>
-                <Link to='/login' className='nav-link'>Cart</Link>
+                <Link to='/cart' className='nav-link' id='navlink'>Cart</Link>
             </li>
 
         </ul>
@@ -71,54 +99,45 @@ function MyNavbar(props) {
 
 
     return (
-        <div style={{position:'sticky',top:'0px',zIndex:'3'}}>
-            {/* <nav className='navbar navbar-expand-sm navbar-dark bg-dark fixed-top' style={{ padding: "7px" }}>
-                <Link to='/' className='navbar-brand'>BookMania</Link>
-                
-
-                <button className="navbar-toggler" style={{ fontSize: "0.7rem", padding: "0.5rem 0.5rem", marginTop: "0px" }} type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id='navbarNav'>
-                    {button}
-                </div>
-                
-            </nav >
-            <Outlet /> */}
+        <motion.div
+            initial="initial"
+            animate="animate"
+            variants={blackBox}>
 
 
-            <Navbar bg="light" expand="lg" >
+            <div style={{ zIndex: '3',border:'2px solid pink' }}>
+                <Navbar bg="light" expand="lg" fixed='top' style={{}} >
 
-                <Navbar.Brand style={{color:'#ed4a6f'}}><Link to='/' className='navbar-brand' >BookMania</Link></Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <div id='search' >
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={(e) => setSearch(e.target.value)} />
-                    {(suggestions.length > 0) &&
-                        <div className='suggestion-box' style={{ backgroundColor: '#5c5e60', top: "45px", position: 'absolute', paddingTop: "13px", zIndex: "5", width: "77%" }}>
-                            <ul>
-                                {(suggestions.length > 0) &&
-                                    suggestions.map(eachSuggestion => {
-                                        console.log("each", eachSuggestion);
-                                        return <li>{eachSuggestion} <hr /></li>
-                                    })
-                                }
-                            </ul>
-                        </div>
-                    }
-                </div>
+                    <Navbar.Brand style={{ color: '#ed4a6f' }}><Link to='/' className='navbar-brand' >BookMania</Link></Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <div id='search' >
+                        <input class="form-control mr-sm-2" style={{ position: 'relative', top: '0px' }} type="search" placeholder="Search" aria-label="Search" onChange={(e) => setSearch(e.target.value)} onFocus={() => setInputFocus(true)} />
+                        {(suggestions.length > 0 && inputFocus == true) &&
+                            <div className='suggestion-box' style={{ position: 'absolute', top: '48.4px', paddingTop: '7px', backgroundColor: 'white', zIndex: "5", width: "76%" }}>
+                                <ul style={{ position: 'relative', top: '0px' }}>
+                                    {(suggestions.length > 0) &&
+                                        suggestions.map(eachSuggestion => {
+                                            console.log("each", eachSuggestion);
+                                            return <li className='search-li' onClick={() => onSearchItemClick(eachSuggestion)} style={{ color: '#ed4a6f', width: '100%', paddingBottom: '5px' }}>{eachSuggestion} </li>
+                                        })
+                                    }
+                                </ul>
 
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        {/* <Nav.Link href="#home">Home</Nav.Link>
+                            </div>
+                        }
+                    </div>
+
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="me-auto">
+                            {/* <Nav.Link href="#home">Home</Nav.Link>
                             <Nav.Link href="#link">Link</Nav.Link> */}
-                        {button}
-                    </Nav>
-                </Navbar.Collapse>
+                            {button}
+                        </Nav>
+                    </Navbar.Collapse>
 
-            </Navbar>
-
-
-        </div>
+                </Navbar>
+            </div>
+        </motion.div>
     )
 }
 

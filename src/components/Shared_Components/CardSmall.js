@@ -17,6 +17,8 @@ import cartProducts from '../../Action_Creators/filteredProducts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faHeartCircleCheck, faCartPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { toast, Toaster } from 'react-hot-toast';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const CardSmall = (props) => {
@@ -26,6 +28,7 @@ const CardSmall = (props) => {
     const [cartIcon, setCartIcon] = useState(faCartPlus)
     const [wishlistIcon, setWishlistIcon] = useState(faHeart)
     const [rating, setRating] = useState(0)
+    const nav=useNavigate()
 
     const handleCart = (id) => {
         if (cartIcon == faCartPlus) {
@@ -51,12 +54,16 @@ const CardSmall = (props) => {
         setRating(3)
     }
 
+    const showListOfProducts=()=>{
+        nav(`/productsList/${props.pName}/${props.props.title}`)
+    }
+
     return (
         <Card style={{ Width: '13rem', minWidth: "12.7rem", maxHeight: "337px", margin: "10px" }} className="card-small">
             {/* {console.log("props src",props.props.src)} */}
             <Card.Img variant="top" style={{ maxHeight: "200px" }} src={props.props.src} />
             <ListGroup className="list-group-flush">
-                <ListGroup.Item style={{ padding: "2px 5px" }}>{props.props.title}</ListGroup.Item>
+                <ListGroup.Item style={{ padding: "2px 5px",cursor:'pointer',color:'blue' }} onClick={showListOfProducts}>{props.props.title}</ListGroup.Item>
                 <ListGroup.Item>
                     <StarRatings
                         rating={parseFloat(props.props.rating)}
