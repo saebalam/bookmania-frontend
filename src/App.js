@@ -16,7 +16,8 @@ import Cart from './components/Cart/Cart';
 import Wishlist from './components/Wishlist/Wishlist';
 import ProductsList from './components/Home/FeaturedProducts/ProductsList/ProductsList';
 import ProductDetails from './components/Home/FeaturedProducts/ProductsList/ProductDetails/ProductDetails'
-import {AnimatePresence} from 'framer-motion/dist/framer-motion'
+import ErrorBoundary from './components/Shared_Components/ErrorBoundary';
+import { AnimatePresence } from 'framer-motion/dist/framer-motion'
 
 
 function App() {
@@ -37,7 +38,7 @@ function App() {
         // console.log(isLoggedin)
         // console.log("/user",res.data)
         if (isLoggedin == "true") {
-          setUser(res.data)
+          setUserData(res.data)
         }
       })
 
@@ -54,17 +55,20 @@ function App() {
           setFeaturedProducts(res.data)
         }
       })
-      .catch(() => alert("error"))
+      .catch(() => { throw new Error('something wrong') })
 
   }, [])
 
 
 
   return (
-      <AnimatePresence>
-        <div className="App">
+    <AnimatePresence>
+      <div className="App">
         <Router>
-          <MyNavbar userData={userData} />
+          <ErrorBoundary>
+            <MyNavbar userData={userData} />
+
+          </ErrorBoundary>
           <Routes>
             <Route exact path='/' element={<Home userData={userData} />} />
             <Route exact path='/login' element={<Login userData={userData} setUser={setUser} />} />
@@ -77,7 +81,7 @@ function App() {
           </Routes>
         </Router>
       </div>
-      </AnimatePresence>
+    </AnimatePresence>
   );
 }
 

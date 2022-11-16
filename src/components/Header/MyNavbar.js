@@ -37,6 +37,9 @@ function MyNavbar(props) {
     const dispatch = useDispatch()
     const nav = useNavigate()
 
+    // if(props.userData==null){
+    //     throw new Error('')
+    // }
 
     let button;
     console.log("userData is", props.userData)
@@ -98,8 +101,9 @@ function MyNavbar(props) {
     }
 
 
+    
     return (
-        <motion.div
+            <motion.div
             initial="initial"
             animate="animate"
             variants={blackBox}>
