@@ -63,13 +63,16 @@ function Login(props) {
                 console.log("in log", res.data.accesstoken);
                 if (res.data) {
                     localStorage.setItem('accesstoken', res.data.accesstoken);
-                    props.setUser(true)
+                    localStorage.setItem('loggedin',true)
+                    console.log('props from app',props);
                     console.log("pathname", window.location.pathname)
-                    if (window.location.pathname == '/login') {
+                    // if (window.location.pathname == '/login') {
                         nav('/')
-                    } else {
-                        nav(window.location.pathname)
-                    }
+                    // } else {
+                    //     nav(window.location.pathname)
+                    // }
+                    props.setUser(true)
+                    
 
                 } else {
                     alert('wrong credentials')
@@ -78,6 +81,7 @@ function Login(props) {
             )
             .catch(error => {
                 nav('/*')
+                console.log(error)
             })
 
     }

@@ -23,33 +23,37 @@ import { AnimatePresence } from 'framer-motion/dist/framer-motion'
 function App() {
 
   // store.subscribe(()=>console.log("store",store.getState()))
-  const [userData, setUserData] = useState(null)                  //to check a user is loggedin
+  const [userData, setUserData] = useState(false)                  //to check a user is loggedin
   const [featuredProducts, setFeaturedProducts] = useState(null)
   const [count, setCount] = useState(0);
+  const [loggedin,setLoggedin]= useState(localStorage.getItem('loggedin'))
 
-  const setUser = (user) => {
-    setUserData(user)
+  // useEffect(() => {
+  //   axios.get('user')
+  //     .then((res) => {
+  //       const isLoggedin = localStorage.getItem('loggedin')
+  //       console.log(isLoggedin)
+  //       console.log("/user",res.data)
+  //       // if (isLoggedin == true) {
+  //       //   setUserData(res.data)
+  //       // }
+  //     })
+
+
+  // }, [userData])
+
+  const setUser=(val)=>{
+    alert('hi')
+    console.log('userdata  is ',userData)
+    setUserData(val)
   }
 
-  useEffect(() => {
-    axios.get('user')
-      .then((res) => {
-        const isLoggedin = localStorage.getItem('token')
-        // console.log(isLoggedin)
-        // console.log("/user",res.data)
-        if (isLoggedin == "true") {
-          setUserData(res.data)
-        }
-      })
-
-
-  }, [userData])
 
   useEffect(() => {
     axios.get('user/featuredProducts')
       .then((res) => {
-        const isLoggedin = localStorage.getItem('token')
-        console.log(isLoggedin)
+        const isLoggedin = localStorage.getItem('loggedin')
+        console.log('loggedim',isLoggedin)
         console.log(res.data)
         if (isLoggedin == "true") {
           setFeaturedProducts(res.data)
@@ -71,7 +75,7 @@ function App() {
           </ErrorBoundary>
           <Routes>
             <Route exact path='/' element={<Home userData={userData} />} />
-            <Route exact path='/login' element={<Login userData={userData} setUser={setUser} />} />
+            <Route exact path='/login' element={<Login setUser={setUser}  />} />
             <Route exact path='/wishlist' element={<Wishlist />} />
             <Route exact path='/cart' element={<Cart />} />
             <Route exact path='register' element={<Register />} />

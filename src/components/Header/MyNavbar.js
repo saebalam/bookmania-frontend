@@ -33,7 +33,7 @@ function MyNavbar(props) {
     const [search, setSearch] = useState("")
     const [suggestions, setSuggestions] = useState([])
     const [inputFocus, setInputFocus] = useState(true)
-    const [logged, setLogged] = useState(localStorage.getItem('accesstoken'))
+    const [loggedin, setLoggedin] = useState(props.userData)
     const dispatch = useDispatch()
     const nav = useNavigate()
 
@@ -42,11 +42,18 @@ function MyNavbar(props) {
     // }
 
     let button;
-    console.log("userData is", props.userData)
+    console.log("my navbar userData is", props.userData)
+    console.log('loggedin',loggedin)
+
+    useEffect(()=>{
+        console.log('in useeff');
+        setLoggedin(props.userData)
+    },[props.userData])
 
     const logout = () => {
         localStorage.removeItem('accesstoken')
-        props.setUser(null)
+        localStorage.removeItem('loggedin')
+        props.setUser(false)
     }
 
     const onSearchItemClick = (productName) => {
@@ -72,7 +79,8 @@ function MyNavbar(props) {
 
 
 
-    if (props.userData || logged != null) {
+    if (loggedin == true) {
+        console.log('logged is true');
         button = <ul className='navbar-nav ms-auto'>
             <li className='nav-item'>
                 <Link to="/" onClick={logout} className='nav-link' id='navlink'>Logout</Link>
