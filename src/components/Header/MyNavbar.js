@@ -2,18 +2,22 @@ import React, { useState, useEffect } from 'react'
 import './navbar.css'
 import { Link, Outlet } from 'react-router-dom'
 import axios from 'axios';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import filteredProducts from '../../Action_Creators/filteredProducts';
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import '../../../node_modules/jquery/dist/jquery'
 
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Dropdown from 'react-bootstrap/NavDropdown';
-import DropdownMenu from 'react-bootstrap/NavDropdown';
-import NavLink from 'react-bootstrap/NavDropdown';
+import Dropdown from 'react-bootstrap/Dropdown';
+// import DropdownMenu from 'react-bootstrap/NavDropdown';
+// import NavLink from 'react-bootstrap/NavDropdown';
 import { createBrowserHistory } from '@remix-run/router';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion/dist/framer-motion'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserSlash, faUser, faBagShopping, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 
 const blackBox = {
     initial: {
@@ -34,8 +38,14 @@ function MyNavbar(props) {
     const [suggestions, setSuggestions] = useState([])
     const [inputFocus, setInputFocus] = useState(true)
     const [loggedin, setLoggedin] = useState(props.userData)
+    const [wishlistQuantity, setWishlistQuantity] = useState([])
+    const [cartQuantity, setCartQuantity] = useState([])
     const dispatch = useDispatch()
     const nav = useNavigate()
+
+    const cartQuantity_ = useSelector(state => state.cartQuantityReducer.cartQuantity)
+    const wishlistQuantity_ = useSelector(state => state.wishlistQuantityReducer.wishlistQuantity)
+
 
     // if(props.userData==null){
     //     throw new Error('')
@@ -43,12 +53,39 @@ function MyNavbar(props) {
 
     let button;
     console.log("my navbar userData is", props.userData)
-    console.log('loggedin',loggedin)
+    console.log('loggedin', loggedin)
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log('in useeff');
         setLoggedin(props.userData)
-    },[props.userData])
+    }, [props.userData])
+
+    // useEffect(() => {
+    //     axios.post('/getWishlistItems', { accessToken: localStorage.getItem('accesstoken') },
+    //         { headers: { 'Content-Type': 'application/json' } })
+    //         .then(
+    //             res => {
+    //                 console.log("res in wishlist", res.data);
+    //                 setWishlistQuantity(res.data)
+    //             }
+    //         )
+    //         .catch(error => {
+    //             console.log("error", error)
+    //         })
+
+    //         // axios.post('/cart', { accessToken: localStorage.getItem('accesstoken') },
+    //         // { headers: { 'Content-Type': 'application/json' } })
+    //         // .then(
+    //         //     res => {
+    //         //         console.log("res in wishlist", res.data);
+    //         //         setCartQuantity(res.data)
+    //         //     }
+    //         // )
+    //         // .catch(error => {
+    //         //     console.log("error", error)
+    //         // })
+    // },[])
+
 
     const logout = () => {
         localStorage.removeItem('accesstoken')
@@ -82,42 +119,73 @@ function MyNavbar(props) {
     if (loggedin == true) {
         console.log('logged is true');
         button = <ul className='navbar-nav ms-auto'>
-            <li className='nav-item'>
-                <Link to="/" onClick={logout} className='nav-link' id='navlink'>Logout</Link>
+            <li className='nav-item' style={{width:'78px',height:'41px',display:'flex',alignItems:'center',}}>
+                {/* <Link to="/" onClick={logout} className='nav-link' id='navlink'>My Account</Link> */}
+                <Dropdown id='nav-link'>
+                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            My Account
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <Dropdown.Item href="#/action-1">Accessories</Dropdown.Item>
+                            <Dropdown.Item href="#/action-2">Books</Dropdown.Item>
+                            <Dropdown.Item href="#/action-3">Computers</Dropdown.Item>
+                            <Dropdown.Item href="#/action-3">Disks</Dropdown.Item>
+                            <Dropdown.Item href="#/action-3">Electronics</Dropdown.Item>
+                            <Dropdown.Item href="#/action-3">Fans</Dropdown.Item>
+                            <Dropdown.Item href="#/action-3">Games</Dropdown.Item>
+                            <Dropdown.Item href="#/action-3">Home accessories</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
             </li>
-            <li className='nav-item'>
-                <Link to='/wishlist' className='nav-link' id='navlink'>Wishlist</Link>
+            <li className='nav-item' style={{width:'166px',height:'41px',display:'flex',alignItems:'center',}}>
+                {/* <div style={{ position: 'relative', zIndex: '10', width: '15px', height: '15px', position: 'relative', left: '22px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#7c7378', color: 'white', borderRadius: '50%' }}>
+                    {wishlistQuantity_}
+                </div> */}
+                <Link to='/wishlist' className='nav-link' id='navlink' style={{ display:'flex'}}><FontAwesomeIcon style={{ fontSize: '1.5em', width: '25px', height: '25px' }} icon={faBagShopping} /> <span>({wishlistQuantity_})</span>
+                </Link>
             </li>
-            <li className='nav-item'>
-                <Link to='/cart' className='nav-link' id='navlink'>Cart</Link>
+            <li className='nav-item' style={{width:'57px',height:'41px',display:'flex',alignItems:'center',}}>
+                {/* <div style={{ position: 'relative', zIndex: '10', width: '15px', height: '15px', position: 'relative', left: '22px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#7c7378', color: 'white', borderRadius: '50%' }}>
+                    {cartQuantity_}
+                </div> */}
+                <Link to='/cart' className='nav-link' id='navlink' style={{ display: 'flex' }}><FontAwesomeIcon style={{ fontSize: '1.5em', width: '25px', height: '25px' }} icon={faCartShopping} /> <span>({cartQuantity_})</span>
+                </Link>
             </li>
         </ul>
 
     } else {
-        button = <ul className='navbar-nav ms-auto'>
-            <li className='nav-item'>
-                <Link to="/login" className='nav-link' id='navlink'>Login</Link>
-            </li>
-            <li className='nav-item'>
-                <Link to='/wishlist' className='nav-link' id='navlink'>Wishlist</Link>
-            </li>
-            <li className='nav-item'>
-                <Link to='/cart' className='nav-link' id='navlink'>Cart</Link>
-            </li>
+        button = <ul className='navbar-nav ms-auto' style={{display:'flex',alignItems:'center'}}>
+                <li className='nav-item' style={{width:'60px',height:'41px',display:'flex',alignItems:'center',}}>
+                    <Link to="/login" className='nav-link' id='navlink' style={{fontWeight:'bold',fontSize:'16px'}}>Login</Link>
+                </li>
+                <li className='nav-item' >
+                    {/* <div style={{ position: 'relative',zIndex:'10', width: '15px', height: '15px', position: 'relative', left: '22px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#7c7378',color:'white', borderRadius: '50%' }}>
+                    {wishlistQuantity_}
+                </div> */}
+                    <Link to='/wishlist' className='nav-link' id='navlink' style={{ display: 'flex' }} ><FontAwesomeIcon style={{ fontSize: '1.5em', width: '25px', height: '25px' }} icon={faBagShopping} /> ({wishlistQuantity_}) </Link>
+                </li>
+                <li className='nav-item'>
+                    {/* <div style={{ position: 'relative',zIndex:'10', width: '15px', height: '15px', position: 'relative', left: '22px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#7c7378',color:'white', borderRadius: '50%' }}>
+                    {cartQuantity_}
+                </div> */}
+                    <Link to='/cart' className='nav-link' id='navlink' style={{ display: 'flex' }} ><FontAwesomeIcon style={{ fontSize: '1.5em', width: '25px', height: '25px' }} icon={faCartShopping} /> <span>({cartQuantity_})</span>
+                    </Link>
+                </li>
 
-        </ul>
+            </ul>
     }
 
 
-    
+
     return (
-            <motion.div
+        <motion.div
             initial="initial"
             animate="animate"
             variants={blackBox}>
 
 
-            <div style={{ zIndex: '3',border:'2px solid pink' }}>
+            <div style={{ zIndex: '3', border: '2px solid pink' }}>
                 <Navbar bg="light" expand="lg" fixed='top' style={{}} >
 
                     <Navbar.Brand style={{ color: '#ed4a6f' }}><Link to='/' className='navbar-brand' >BookMania</Link></Navbar.Brand>
@@ -149,6 +217,7 @@ function MyNavbar(props) {
 
                 </Navbar>
             </div>
+            
         </motion.div>
     )
 }

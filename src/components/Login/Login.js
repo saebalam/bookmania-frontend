@@ -120,7 +120,7 @@ function Login(props) {
                                 <input type="password" className='form-control' name="password" id="" placeholder='Enter your password'
                                     value={formik.values.password} onBlur={formik.handleBlur} onChange={formik.handleChange} />
                                 {formik.touched.password && formik.errors.password ? <div style={{ color: "red" }}>{formik.errors.password}</div> : null}
-                                <div className="forgot-password" style={{ marginTop: '3px' }}><Link replace to='/register' style={{ color: 'blue' }}>Forgot Password ?</Link></div>
+                                <div className="forgot-password" style={{ marginTop: '3px' }}><Link replace to='/checkEmail' style={{ color: 'blue' }}>Forgot Password ?</Link></div>
                             </div>
                             <div className="form-group">
                                 <button id='login-btn'>SUBMIT</button>

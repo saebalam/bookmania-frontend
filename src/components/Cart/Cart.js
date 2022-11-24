@@ -2,16 +2,20 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import './cart.css'
-import { Link } from 'react-router-dom';
+import { Link,Navigate } from 'react-router-dom';
+
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup';
+import { useDispatch } from 'react-redux';
 import card from '../../Assets/Images/card.jpg'
 import empty_cart from '../../Assets/Images/empty_cart2.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faSquareMinus, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion/dist/framer-motion'
+import {cartQuantityDec,cartQuantityInc,cartQuantityClear} from '../../Action_Creators/cartQuantity'
 import Login from '../Login/Login';
+
 
 const blackBox = {
     initial: {
@@ -34,6 +38,7 @@ const Cart = () => {
     const [quantity, setQuantity] = useState(0)                            //to track change in quantity for re render
     const [totalPrice, setTotalPrice] = useState()
     const [loggedin, setLoggedin] = useState(localStorage.getItem('loggedin'))
+    const dispatch=useDispatch()
     const discount = 18
     var arr = []
 
@@ -69,26 +74,30 @@ const Cart = () => {
 
     const decreaseQuantity = (id) => {
         console.log(id)
-        // const quan=
-        if (quantity >= 1) {
+        const quan=cartItems.filter(cartItem=>cartItem.id == id)
+        console.log('quan ',quan);
+        if (quan[0].quantity> 1) {
             axios.post(`/decreaseCartQuantity/${id}`)
                 .then(setQuantity(quantity + 1))
-
+            dispatch(cartQuantityDec({type:'DECREASE_QUANTITY'}))
         }
     }
     const increaseQuantity = (id) => {
         axios.post(`/increaseCartQuantity/${id}`)
             .then(setQuantity(quantity + 1))
         console.log("upd", cartItems);
+        dispatch(cartQuantityInc({type:'INCREASE_QUANTITY'}))
     }
 
     const handleRemoveFromCart = (id) => {
         console.log("id to rem", id);
+        const quan = cartItems.filter(cartItem=>cartItem.id == id)
 
-        console.log("beforecart length", cartItems.length)
+        console.log("clear cart", quan)
         axios.post(`/removeItem/${id}`)
             .then(console.log("added"))
             .then(setRefreshCart(cartItems.length - 1))
+        dispatch(cartQuantityClear(quan))
 
     }
 
@@ -127,7 +136,7 @@ const Cart = () => {
 
                                     {cartItems.map((cartItem) => {
                                         return <tr key={cartItem.id} className="cartCard">
-
+                                            {console.log('cartitem.quan',cartItem.quantity)}
                                             <td className='td1'>
                                                 {/* {console.log("props", props.props)} */}
                                                 <div >
@@ -209,7 +218,7 @@ const Cart = () => {
 
                     }
                 </div>
-                : <div>{nav('/login')}</div>
+                : <Navigate to='/login' replace={true}/>
             }
 
         </motion.div>

@@ -1,5 +1,8 @@
+import axios from 'axios'
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import toast,{Toaster} from 'react-hot-toast'
 import './register.css'
 
 const validate = values => {
@@ -21,7 +24,7 @@ const validate = values => {
 
     if (!values.password) {
         errors.password = "Required"
-    } else if (/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/i.test(values.password)) {
+    } else if (!/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/i.test(values.password)) {
         errors.password = "Password must meet minimum criteria";
     }
 
@@ -32,13 +35,27 @@ function Register() {
     const [fname, setFname] = useState("")
     const [lname, setLname] = useState("")
     const [email, setEmail] = useState("")
-    const [number, setNumber] = useState("")
+    // const [number, setNumber] = useState("")
     const [password, setPassword] = useState("")
-    const [confirmPassword, setConfirmPassword] = useState("")
+    // const [confirmPassword, setConfirmPassword] = useState("")
+    const [btndisable,setBtndisable]=useState(true)
+    const nav=useNavigate()
 
     const handleRegisterForm = (e) => {
         e.preventDefault()
         console.log(fname, lname);
+        const data = { "userInfo": { "email": formik.values.email, "password": formik.values.password } }
+        const API_DATA = JSON.stringify(data)
+        axios.post('/register',API_DATA,{ headers: { 'Content-Type': 'application/json' } })
+        .then(res=>{
+            console.log(res.data);
+            if(res.data==true){
+                toast('User registered successfully, Please Login')
+                setTimeout(() => {
+                    nav('/')
+                }, 2500);
+            }
+        })
     }
 
     const formik = useFormik({
@@ -57,7 +74,8 @@ function Register() {
 
     return (
         <div style={{ marginTop: '100px' }}>
-            <form onSubmit={handleRegisterForm} className='m-auto col-lg-3 regForm'>
+            <form className='m-auto col-lg-3 regForm'>
+                <Toaster />
                 <h3>Register</h3>
                 <div className="form-group">
                     <label htmlFor="firstname" className=''>First Name</label>
@@ -79,7 +97,7 @@ function Register() {
                 </div>
                 <div className="form-group">
                     <label htmlFor="">Password</label>
-                    <input type="text" className='form-control' name="password" id="" placeholder='Set your password'
+                    <input type="password" className='form-control' name="password" id="" placeholder='Set your password'
                         value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} />
                     {formik.touched.password && formik.errors.password ? <div style={{ color: "#bd0707" }}>{formik.errors.password}</div> : null}
                 </div>
@@ -89,7 +107,15 @@ function Register() {
                 value='' onChange={(e)=>setConfirmPassword(e.target.value)} />
             </div> */}
                 <div>
-                    <button className='btn btn-primary' style={{width:'330px',marginTop:'20px'}} >Submit</button>
+                {(!formik.errors.firstname && formik.touched.firstname) 
+                 && (!formik.errors.lastname && formik.touched.lastname)
+                 && (!formik.errors.email && formik.touched.email)
+                 && (!formik.errors.password && formik.touched.password)
+                ?
+                    <button className='btn btn-primary' style={{width:'330px',marginTop:'20px'}} onClick={(e)=>handleRegisterForm(e)} >Register</button>
+                :
+                    // <button className='btn btn-primary'  style={{width:'330px',marginTop:'20px',cursor:'not-allowed',backgroundColor:'#0d6efd'}} >Register</button>}
+                    <div className='btn btn-primary' style={{width:'330px',marginTop:'20px',cursor:'not-allowed',backgroundColor:'#0d6efd'}}>Register</div>}
                 </div>
             </form>
         </div>

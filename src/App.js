@@ -6,6 +6,7 @@ import MyNavbar from './components/Header/MyNavbar';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
+import checkEmail from './components/ForgotPassword/CheckEmail'
 import Error from './components/Shared_Components/Error';
 import { BrowserRouter as Router, Routes, Route, Outlet, Link } from 'react-router-dom'
 import axios from 'axios';
@@ -18,6 +19,8 @@ import ProductsList from './components/Home/FeaturedProducts/ProductsList/Produc
 import ProductDetails from './components/Home/FeaturedProducts/ProductsList/ProductDetails/ProductDetails'
 import ErrorBoundary from './components/Shared_Components/ErrorBoundary';
 import { AnimatePresence } from 'framer-motion/dist/framer-motion'
+import CheckEmail from './components/ForgotPassword/CheckEmail';
+import ResetPassword from './components/ForgotPassword/ResetPassword';
 
 
 function App() {
@@ -43,8 +46,6 @@ function App() {
   // }, [userData])
 
   const setUser=(val)=>{
-    alert('hi')
-    console.log('userdata  is ',userData)
     setUserData(val)
   }
 
@@ -81,6 +82,8 @@ function App() {
             <Route exact path='register' element={<Register />} />
             <Route exact path='/productsList/:productName' element={<ProductsList />} />
             <Route exact path='/productsList/:productName/:listOfProducts' element={<ProductDetails />} />
+            <Route exact path='/checkEmail' element={<CheckEmail />} />
+            <Route exact path='/resetPassword' element={<ResetPassword />} />
             <Route path='/*' element={<Error />} />
           </Routes>
         </Router>

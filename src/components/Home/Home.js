@@ -127,7 +127,7 @@ const Home = React.memo(({ userData }) => {
                         <div className='wrapper' >
 
                             <Carousel>
-                                <Carousel.Item>
+                                <Carousel.Item interval={1500}>
                                     <img
                                         className="d-block w-100"
                                         src={carousel1}
@@ -138,7 +138,7 @@ const Home = React.memo(({ userData }) => {
                                         <p>Nulla vitae elit libero, a pharetra augue mollis interdum &#9733; .</p>
                                     </Carousel.Caption>
                                 </Carousel.Item>
-                                <Carousel.Item>
+                                <Carousel.Item interval={1500}>
                                     <img
                                         className="d-block w-100"
                                         src={carousel2}
@@ -150,7 +150,7 @@ const Home = React.memo(({ userData }) => {
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                     </Carousel.Caption>
                                 </Carousel.Item>
-                                <Carousel.Item>
+                                <Carousel.Item interval={1500}>
                                     <img
                                         className="d-block w-100"
                                         src={carousel4}

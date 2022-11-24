@@ -1,14 +1,16 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import card from '../../Assets/Images/card.jpg'
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import empty_wishlist from '../../Assets/Images/empty_wishlist.png'
 import './wishlist.css'
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion/dist/framer-motion'
+import { useDispatch } from 'react-redux';
 import Login from '../Login/Login';
+import { wishlistQuantityClear } from '../../Action_Creators/wishlistQuantity';
 
 const blackBox = {
     initial: {
@@ -28,6 +30,7 @@ const Wishlist = () => {
     const [wishlistItems, setWishlistItems] = useState([])
     const [refreshWishlist, setRefreshWishlist] = useState(0)
     const [loggedin, setLoggedin] = useState(localStorage.getItem('loggedin'))
+    const dispatch = useDispatch()
 
     useEffect(() => {
         axios.post('getWishlistItems', { accessToken: localStorage.getItem('accesstoken') },
@@ -44,8 +47,10 @@ const Wishlist = () => {
 
     const removeFromWishlist = (id) => {
         console.log("id wish", id);
+        const quan = wishlistItems.filter(wishlistItem=>wishlistItem.id == id)
         axios.post(`removeFromWishlist/${id}`)
             .then(setRefreshWishlist(refreshWishlist + 1))
+        dispatch(wishlistQuantityClear())
     }
 
     return (
@@ -90,7 +95,7 @@ const Wishlist = () => {
                         </div>
                     }
                 </div>
-                : <div>{nav('/login')}</div>
+                : <Navigate to='/login' replace={true} />
             }
 
         </motion.div>

@@ -16,19 +16,21 @@ import axios from 'axios';
 import cartProducts from '../../Action_Creators/filteredProducts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faHeartCircleCheck, faCartPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
-import { toast, Toaster } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { cartQuantityInc } from '../../Action_Creators/cartQuantity';
+import { wishlistQuantityInc } from '../../Action_Creators/wishlistQuantity';
+import { toast, Toaster } from 'react-hot-toast';
 
 
 const CardSmall = (props) => {
     // toast.configure()
 
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
     const [cartIcon, setCartIcon] = useState(faCartPlus)
     const [wishlistIcon, setWishlistIcon] = useState(faHeart)
     const [rating, setRating] = useState(0)
-    const nav=useNavigate()
+    const nav = useNavigate()
 
     const handleCart = (id) => {
         if (cartIcon == faCartPlus) {
@@ -36,6 +38,7 @@ const CardSmall = (props) => {
             console.log("props.props", obj)
             axios.post('/addToCart', obj)
                 .then(setCartIcon((cartItem) => (cartItem === faCartPlus ? faCheck : faCartPlus)))
+            dispatch(cartQuantityInc())
         } else {
 
             // axios.post(`/removeItem/${props.props.id}`)
@@ -46,24 +49,39 @@ const CardSmall = (props) => {
     }
 
     const handleWishlist = (props) => {
+        const id = props.id;
         axios.post('/addToWishlist', props)
-            .then(setWishlistIcon((wishlistIcon) => (wishlistIcon === faHeart ? faHeartCircleCheck : faHeart)))
+            .then((res) => {
+                console.log('res is', res.data);
+                if (res.data == true) {
+                    setWishlistIcon((wishlistIcon) => (wishlistIcon === faHeart ? faHeartCircleCheck : faHeart))
+                    dispatch(wishlistQuantityInc())
+                    toast("item added!");
+                } else {
+                    alert('item already exists')
+                }
+            })
     }
+
+    const mouseOut = () => {
+        console.log('mouseout fired')
+    }
+
 
     const changeRating = () => {
         setRating(3)
     }
 
-    const showListOfProducts=()=>{
+    const showListOfProducts = () => {
         nav(`/productsList/${props.pName}/${props.props.title}`)
     }
 
     return (
-        <Card style={{ Width: '13rem', minWidth: "12.7rem", maxHeight: "337px", margin: "10px" }} className="card-small">
+        <Card style={{ Width: '13rem', minWidth: "12.7rem", maxHeight: "337px", margin: "10px" }} className="card-small" onMouseOut={mouseOut}>
             {/* {console.log("props src",props.props.src)} */}
             <Card.Img variant="top" style={{ maxHeight: "200px" }} src={props.props.src} />
             <ListGroup className="list-group-flush">
-                <ListGroup.Item style={{ padding: "2px 5px",cursor:'pointer',color:'blue' }} onClick={showListOfProducts}>{props.props.title}</ListGroup.Item>
+                <ListGroup.Item style={{ padding: "2px 5px", cursor: 'pointer', color: 'blue' }} onClick={showListOfProducts}>{props.props.title}</ListGroup.Item>
                 <ListGroup.Item>
                     <StarRatings
                         rating={parseFloat(props.props.rating)}
@@ -78,8 +96,8 @@ const CardSmall = (props) => {
             </ListGroup>
             <Card.Body style={{ padding: "3px 5px" }}>
                 <button title="Add to Wishlist" onClick={() => handleWishlist(props.props)}><FontAwesomeIcon icon={wishlistIcon} className="heartButton" /></button>
-                {/* <button onClick={()=>{dispatch(cartProducts(props.props)) }}><FontAwesomeIcon icon={faCartPlus} /></button> */}
-                <button title="Add to Cart" onClick={() => handleCart(props.props.id)} ><FontAwesomeIcon icon={cartIcon} className="cartButton" /></button>
+
+                <button title="Add to Cart" onClick={() => handleCart(props.props)} ><FontAwesomeIcon icon={cartIcon} className="cartButton" /></button>
             </Card.Body>
         </Card>
     )
