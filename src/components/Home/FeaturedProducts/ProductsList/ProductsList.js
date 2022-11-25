@@ -8,6 +8,7 @@ import { useState } from 'react';
 import CardSmall from '../../../Shared_Components/CardSmall';
 import './productsList.css'
 import { AnimatePresence, motion } from 'framer-motion/dist/framer-motion'
+import Dropdown from 'react-bootstrap/Dropdown'
 
 const blackBox = {
   initial: {
@@ -36,36 +37,146 @@ const ProductsList = () => {
 
   useEffect(() => {
 
-    axios.get(`/productsList/${pName}`)
+    axios.get(`/collections/${pName}`)
       .then(res => {
+        console.log('collections res',res);
         if (res.data.length != null && res.data.length > 0) {
+          // const res_obj
           setProductsList(res.data)
 
         }
       })
-  }, [])
+  }, [pName])
 
 
   return (
-    <motion.div
-      initial="initial"
-      animate="animate"
-      variants={blackBox}>
+    <div>
+      <div className='myBreadcrumb' style={{ marginTop: '60px', marginBottom: '0px' }}>
+        <Link to='/' className='link' >Home / </Link><span>{pName}</span>
+      </div>
 
-        <div style={{marginTop:'70px'}}>
-          <div className='myBreadcrumb'>
-            <Link to='/' className='link'>Home / </Link><span>{pName}</span>
-          </div>
-          <div className='productsListContainer'>
-            {
-              productsList.map(product => {
-                return <CardSmall props={product} pName={pName} />
-              })
-            }
-          </div>
+      <div>
+        <p style={{ fontSize: '20px' }}>{pName}</p>
+      </div>
+
+      <div style={{ display: 'flex', justifyContent: 'space-between', }}>
+        <div style={{ width: '15%' }}>
+          <p style={{ width: '147px', textAlign: 'left', marginLeft: '29px', marginBottom: '15px', paddingBottom: '5px', borderBottom: '1px solid #cfc7c7', fontSize: '19px' }}>Filters</p>
+          <ul id='filter_ul'>
+            <li ><Dropdown id='nav-link' >
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Product Type
+              </Dropdown.Toggle>
+              <Dropdown.Divider />
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1"><input type="checkbox" name="" id="" style={{ marginRight: '3px' }} />Accessories</Dropdown.Item>
+                <Dropdown.Item href="#/action-2"><input type="checkbox" name="" id="" />Books</Dropdown.Item>
+                <Dropdown.Item href="#/action-3"><input type="checkbox" name="" id="" />Computers</Dropdown.Item>
+                <Dropdown.Item href="#/action-3"><input type="checkbox" name="" id="" />Disks</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown></li>
+            <li><Dropdown id='nav-link'>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Material
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Accessories</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Books</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Computers</Dropdown.Item>
+              </Dropdown.Menu>
+              <Dropdown.Divider />
+            </Dropdown></li>
+            <li><Dropdown id='nav-link'>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Color
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Accessories</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Books</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Computers</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Disks</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Electronics</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Fans</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Games</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Home accessories</Dropdown.Item>
+              </Dropdown.Menu>
+              <Dropdown.Divider />
+            </Dropdown></li>
+            <li><Dropdown id='nav-link'>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Size
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Accessories</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Books</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Computers</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Disks</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Electronics</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Fans</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Games</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Home accessories</Dropdown.Item>
+              </Dropdown.Menu>
+              <Dropdown.Divider />
+            </Dropdown></li>
+            <li><Dropdown id='nav-link'>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Price
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Accessories</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Books</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Computers</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Disks</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Electronics</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Fans</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Games</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Home accessories</Dropdown.Item>
+              </Dropdown.Menu>
+              <Dropdown.Divider />
+            </Dropdown></li>
+          </ul>
         </div>
-    </motion.div>
 
+        <div style={{ width: '83%' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '2px 10px' }}>
+            <div>{productsList.length} Products</div>
+            <div style={{display:'flex',justifyContent:'space-around',alignItems:'flex-end',width:'150px'}}><div>Sort by:</div> <Dropdown id='nav-link'>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                any
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Date</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Alphabet</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Price</Dropdown.Item>
+              </Dropdown.Menu>
+              
+            </Dropdown>
+            </div>
+          </div>
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={blackBox}>
+
+            <div className='productsListContainer'>
+              {
+                productsList.map(product => {
+                  return <CardSmall props={product} pName={pName}  />
+                })
+              }
+            </div>
+
+          </motion.div>
+        </div>
+
+      </div>
+    </div>
   )
 }
 

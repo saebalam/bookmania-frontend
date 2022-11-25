@@ -80,7 +80,7 @@ function App() {
             <Route exact path='/wishlist' element={<Wishlist />} />
             <Route exact path='/cart' element={<Cart />} />
             <Route exact path='register' element={<Register />} />
-            <Route exact path='/productsList/:productName' element={<ProductsList />} />
+            <Route exact path='/collections/:productName' element={<ProductsList />} />
             <Route exact path='/productsList/:productName/:listOfProducts' element={<ProductDetails />} />
             <Route exact path='/checkEmail' element={<CheckEmail />} />
             <Route exact path='/resetPassword' element={<ResetPassword />} />

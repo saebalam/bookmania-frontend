@@ -5,7 +5,8 @@
 .myBreadcrumb{
     text-align: left;
     font-size: 13px;
-    margin: 5px 5px;
+    margin-top: 60px;
+    margin-bottom: 30px;
 }
 
 .myBreadcrumb .link{
@@ -14,4 +15,44 @@
 }
 .myBreadcrumb span{
     color: rgb(128, 128, 128);
+}
+
+#nav-link div{
+    position: relative !important;
+    transform: translate(-8px, 0px) !important;
+    overflow: hidden;
+    padding: 0;
+}
+
+#filter_ul{
+    list-style-type: none;
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0;
+}
+
+#filter_ul li{
+    /* border: 1px solid black; */
+    width: 150px;
+    margin: 0 0 10px 0;
+
+    
+}
+
+.dropdown-toggle::after{
+    margin-left: 3.80em;
+}
+
+#dropdown-basic {
+    margin-left: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+}
+ 
+.dropdown-menu{
+    border :none;
 }

@@ -10,9 +10,9 @@ import homePageProducts from '../../Action_Creators/homePageProducts'
 import cartProducts from '../../Action_Creators/filteredProducts'
 import { useLocation } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
-import carousel1 from '../../Assets/Images/carousel1.jpg'
-import carousel2 from '../../Assets/Images/carousel2.jpg'
-import carousel4 from '../../Assets/Images/carousel4.jpg'
+import carousel11 from '../../Assets/Images/carousel11.jpg'
+import carousel22 from '../../Assets/Images/carousel22.jpg'
+import carousel33 from '../../Assets/Images/carousel33.jpg'
 import Dropdown from 'react-bootstrap/Dropdown';
 
 import './home.css'
@@ -130,7 +130,7 @@ const Home = React.memo(({ userData }) => {
                                 <Carousel.Item interval={1500}>
                                     <img
                                         className="d-block w-100"
-                                        src={carousel1}
+                                        src={carousel11}
                                         alt="First slide"
                                     />
                                     <Carousel.Caption>
@@ -141,7 +141,7 @@ const Home = React.memo(({ userData }) => {
                                 <Carousel.Item interval={1500}>
                                     <img
                                         className="d-block w-100"
-                                        src={carousel2}
+                                        src={carousel22}
                                         alt="Second slide"
                                     />
 
@@ -153,7 +153,7 @@ const Home = React.memo(({ userData }) => {
                                 <Carousel.Item interval={1500}>
                                     <img
                                         className="d-block w-100"
-                                        src={carousel4}
+                                        src={carousel33}
                                         alt="Third slide"
                                     />
 

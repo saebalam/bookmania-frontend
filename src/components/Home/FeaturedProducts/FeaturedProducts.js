@@ -30,26 +30,26 @@ const FeaturedProducts = () => {
             animate="animate"
             variants={blackBox}>
             <div className='row1'>
-                <div><Link to={{ pathname: `/productsList/jeans` }}><img src={card} alt="" /></Link>  </div>
-                <div><Link to={{ pathname: `/productsList/tshirt` }}> <img src={card2} alt="" /></Link></div>
-                <div><Link to={{ pathname: `/productsList/shoes` }}> <img src={card3} alt="" /></Link></div>
-                <div><Link to={{ pathname: `/productsList/1` }}> <img src={card4} alt="" /></Link></div>
+                <div><Link to={{ pathname: `/collections/Bedsheets` }}><img src={card} alt="" /></Link>  </div>
+                <div><Link to={{ pathname: `/collections/tshirt` }}> <img src={card2} alt="" /></Link></div>
+                <div><Link to={{ pathname: `/collections/shoes` }}> <img src={card3} alt="" /></Link></div>
+                <div><Link to={{ pathname: `/collections/1` }}> <img src={card4} alt="" /></Link></div>
             </div>
             <div className='row2'>
-                <div><Link to={{ pathname: `/productsList/1` }}> <img src={card} alt="" /> </Link></div>
-                <div><Link to={{ pathname: `/productsList/1` }}> <img src={card2} alt="" /></Link></div>
+                <div><Link to={{ pathname: `/collections/1` }}> <img src={card} alt="" /> </Link></div>
+                <div><Link to={{ pathname: `/collections/1` }}> <img src={card2} alt="" /></Link></div>
             </div>
             <div className='row3'>
                 <div className='col1'>
-                    <div><Link to={{ pathname: `/productsList/1` }}> <img src={card} alt="" /> </Link></div>
+                    <div><Link to={{ pathname: `/collections/1` }}> <img src={card} alt="" /> </Link></div>
                 </div>
                 <div className='col2'>
-                    <div> <Link to={{ pathname: `/productsList/1` }}><img src={card} alt="" /></Link> </div>
-                    <div><Link to={{ pathname: `/productsList/1` }}> <img src={card2} alt="" /></Link></div>
+                    <div> <Link to={{ pathname: `/collections/1` }}><img src={card} alt="" /></Link> </div>
+                    <div><Link to={{ pathname: `/collections/1` }}> <img src={card2} alt="" /></Link></div>
                 </div>
                 <div className='col3'>
-                    <div><Link to={{ pathname: `/productsList/1` }}> <img src={card3} alt="" /></Link> </div>
-                    <div><Link to={{ pathname: `/productsList/1` }}> <img src={card2} alt="" /> </Link></div>
+                    <div><Link to={{ pathname: `/collections/1` }}> <img src={card3} alt="" /></Link> </div>
+                    <div><Link to={{ pathname: `/collections/1` }}> <img src={card2} alt="" /> </Link></div>
                 </div>
 
             </div>
