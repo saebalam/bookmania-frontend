@@ -79,7 +79,7 @@ const CardSmall = (props) => {
     return (
         <Card style={{ Width: '13rem', minWidth: "12.7rem",maxWidth:'12.7rem', maxHeight: "337px", margin: "10px" }} className="card-small" onMouseOut={mouseOut}>
             {console.log("props src",props.props.src)}
-            <Card.Img variant="top" style={{ maxHeight: "200px" }} src={`${props.props.src}.jpg`} />
+            <Card.Img variant="top" style={{ maxHeight: "200px",minHeight:'200px' }} src={`${props.props.src}.jpg`} />
             <ListGroup className="list-group-flush">
                 <ListGroup.Item style={{ padding: "2px 5px", cursor: 'pointer', color: 'blue' }} onClick={showListOfProducts}>{props.props.title}</ListGroup.Item>
                 <ListGroup.Item>

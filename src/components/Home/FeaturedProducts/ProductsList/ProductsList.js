@@ -33,13 +33,35 @@ const ProductsList = () => {
     category: 'tshirt'
   }])
 
+  const [isChecked, setIsChecked] = useState({
+      'accessories': 0,
+      'books': 0,
+      'computer': 0,
+      'disks': 0
+    }
+  )
+
   const pName = useParams().productName
+
+  const handleCheckbox = (e) => {
+    const key=e.target.name
+    const value=Number(e.target.defaultValue)
+    console.log('checkbox e ', e)
+    console.log('checkbox target name ', key)
+    console.log('checkbox val ', value)
+    const newValue= value==1?0:1
+    // const num_newValue=Number(newValue)
+    console.log({[key]:newValue})
+    const obj={...isChecked,[key]:newValue}
+    setIsChecked(obj)
+    // clg
+  }
 
   useEffect(() => {
 
     axios.get(`/collections/${pName}`)
       .then(res => {
-        console.log('collections res',res);
+        console.log('collections res', res);
         if (res.data.length != null && res.data.length > 0) {
           // const res_obj
           setProductsList(res.data)
@@ -63,15 +85,15 @@ const ProductsList = () => {
         <div style={{ width: '15%' }}>
           <p style={{ width: '147px', textAlign: 'left', marginLeft: '29px', marginBottom: '15px', paddingBottom: '5px', borderBottom: '1px solid #cfc7c7', fontSize: '19px' }}>Filters</p>
           <ul id='filter_ul'>
-            <li ><Dropdown id='nav-link' >
+            <li ><Dropdown id='nav-link' autoClose={false}>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 Product Type
               </Dropdown.Toggle>
               <Dropdown.Divider />
 
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1"><input type="checkbox" name="" id="" style={{ marginRight: '3px' }} />Accessories</Dropdown.Item>
-                <Dropdown.Item href="#/action-2"><input type="checkbox" name="" id="" />Books</Dropdown.Item>
+                <Dropdown.Item href="#/action-1"><input type="checkbox" name="accessories" id="" defaultChecked={isChecked.accessories} value={isChecked.accessories} style={{ marginRight: '3px' }} onChange={(e) => handleCheckbox(e)} />Accessories</Dropdown.Item>
+                <Dropdown.Item href="#/action-2"><input type="checkbox" name="books" id="" defaultChecked={isChecked.books} value={isChecked.books} onChange={(e) => handleCheckbox(e)} />Books</Dropdown.Item>
                 <Dropdown.Item href="#/action-3"><input type="checkbox" name="" id="" />Computers</Dropdown.Item>
                 <Dropdown.Item href="#/action-3"><input type="checkbox" name="" id="" />Disks</Dropdown.Item>
               </Dropdown.Menu>
@@ -145,7 +167,7 @@ const ProductsList = () => {
         <div style={{ width: '83%' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', padding: '2px 10px' }}>
             <div>{productsList.length} Products</div>
-            <div style={{display:'flex',justifyContent:'space-around',alignItems:'flex-end',width:'150px'}}><div>Sort by:</div> <Dropdown id='nav-link'>
+            <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'flex-end', width: '150px' }}><div>Sort by:</div> <Dropdown id='nav-link'>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 any
               </Dropdown.Toggle>
@@ -155,7 +177,7 @@ const ProductsList = () => {
                 <Dropdown.Item href="#/action-2">Alphabet</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">Price</Dropdown.Item>
               </Dropdown.Menu>
-              
+
             </Dropdown>
             </div>
           </div>
@@ -167,7 +189,7 @@ const ProductsList = () => {
             <div className='productsListContainer'>
               {
                 productsList.map(product => {
-                  return <CardSmall props={product} pName={pName}  />
+                  return <CardSmall props={product} pName={pName} />
                 })
               }
             </div>
