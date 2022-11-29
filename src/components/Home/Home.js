@@ -128,7 +128,7 @@ const Home = React.memo(({ userData }) => {
 
                             <Carousel>
                                 <Carousel.Item interval={1500}>
-                                    <img
+                                    <img rel="preload"
                                         className="d-block w-100"
                                         src={carousel11}
                                         alt="First slide"
@@ -140,6 +140,7 @@ const Home = React.memo(({ userData }) => {
                                 </Carousel.Item>
                                 <Carousel.Item interval={1500}>
                                     <img
+                                    rel="preload"
                                         className="d-block w-100"
                                         src={carousel22}
                                         alt="Second slide"
@@ -152,6 +153,7 @@ const Home = React.memo(({ userData }) => {
                                 </Carousel.Item>
                                 <Carousel.Item interval={1500}>
                                     <img
+                                    rel="preload"
                                         className="d-block w-100"
                                         src={carousel33}
                                         alt="Third slide"

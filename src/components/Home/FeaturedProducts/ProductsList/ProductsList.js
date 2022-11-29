@@ -33,7 +33,23 @@ const ProductsList = () => {
     category: 'tshirt'
   }])
 
+  const [filters,setFilters] = useState({
+    accessories:true,
+    books:true,
+    computers:false,
+    disks:true
+  })
+
   const pName = useParams().productName
+
+  const handleCheck=(e)=>{
+    const key=e.target.name;
+    const val=e.target.value
+    
+    console.log('clicked filter key is',key)
+    console.log('clicked filter val is',val)
+    setFilters({...filters,accessories:!val})
+  }
 
   useEffect(() => {
 
@@ -59,24 +75,24 @@ const ProductsList = () => {
         <p style={{ fontSize: '20px' }}>{pName}</p>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', }}>
+      <div style={{ width:'95%',margin:'0 auto',display: 'flex', justifyContent: 'space-between', }}>
         <div style={{ width: '15%' }}>
           <p style={{ width: '147px', textAlign: 'left', marginLeft: '29px', marginBottom: '15px', paddingBottom: '5px', borderBottom: '1px solid #cfc7c7', fontSize: '19px' }}>Filters</p>
           <ul id='filter_ul'>
-            <li ><Dropdown id='nav-link' >
+            <li ><Dropdown id='nav-link' autoClose="outside">
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 Product Type
               </Dropdown.Toggle>
               <Dropdown.Divider />
 
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1"><input type="checkbox" name="" id="" style={{ marginRight: '3px' }} />Accessories</Dropdown.Item>
-                <Dropdown.Item href="#/action-2"><input type="checkbox" name="" id="" />Books</Dropdown.Item>
-                <Dropdown.Item href="#/action-3"><input type="checkbox" name="" id="" />Computers</Dropdown.Item>
-                <Dropdown.Item href="#/action-3"><input type="checkbox" name="" id="" />Disks</Dropdown.Item>
+                <Dropdown.Item href="#/action-1"><input onChange={(e)=>handleCheck(e)} type="checkbox" name="accessories" id="" value={filters.accessories} checked={filters.accessories} style={{ marginRight: '3px' }} />Accessories</Dropdown.Item>
+                <Dropdown.Item href="#/action-2"><input onChange={handleCheck} type="checkbox" name="" id="" checked={filters.books}/>Books</Dropdown.Item>
+                <Dropdown.Item href="#/action-3"><input onChange={handleCheck} type="checkbox" name="" id="" checked={filters.computers}/>Computers</Dropdown.Item>
+                <Dropdown.Item href="#/action-3"><input onChange={handleCheck} type="checkbox" name="" id="" checked={filters.disks}/>Disks</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown></li>
-            <li><Dropdown id='nav-link'>
+            <li><Dropdown id='nav-link' autoClose="outside">
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 Material
               </Dropdown.Toggle>
@@ -88,7 +104,7 @@ const ProductsList = () => {
               </Dropdown.Menu>
               <Dropdown.Divider />
             </Dropdown></li>
-            <li><Dropdown id='nav-link'>
+            <li><Dropdown id='nav-link' autoClose="outside">
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 Color
               </Dropdown.Toggle>
@@ -105,7 +121,7 @@ const ProductsList = () => {
               </Dropdown.Menu>
               <Dropdown.Divider />
             </Dropdown></li>
-            <li><Dropdown id='nav-link'>
+            <li><Dropdown id='nav-link' autoClose="outside">
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 Size
               </Dropdown.Toggle>
@@ -122,8 +138,8 @@ const ProductsList = () => {
               </Dropdown.Menu>
               <Dropdown.Divider />
             </Dropdown></li>
-            <li><Dropdown id='nav-link'>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
+            <li><Dropdown id='nav-link' autoClose="outside">
+              <Dropdown.Toggle  id="dropdown-basic">
                 Price
               </Dropdown.Toggle>
 
@@ -142,7 +158,7 @@ const ProductsList = () => {
           </ul>
         </div>
 
-        <div style={{ width: '83%' }}>
+        <div style={{ width: '83%' }} id='products_list'>
           <div style={{ display: 'flex', justifyContent: 'space-between', padding: '2px 10px' }}>
             <div>{productsList.length} Products</div>
             <div style={{display:'flex',justifyContent:'space-around',alignItems:'flex-end',width:'150px'}}><div>Sort by:</div> <Dropdown id='nav-link'>

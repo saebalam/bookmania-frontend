@@ -17,7 +17,7 @@
     color: rgb(128, 128, 128);
 }
 
-#nav-link div{
+#filter_ul #nav-link div{
     position: relative !important;
     transform: translate(-8px, 0px) !important;
     overflow: hidden;
@@ -41,17 +41,51 @@
     
 }
 
-.dropdown-toggle::after{
+#filter_ul .dropdown-toggle::after{
     margin-left: 3.80em;
 }
 
-#dropdown-basic {
+#filter_ul #dropdown-basic {
     margin-left: 2px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 95%;
+    padding: 0px 0px;
+    background-color: transparent;
+    color: black;
+    border: none;
+    font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: small;
+    color: #49494b;
+    margin-top: -6px;
+    
 }
+
+#filter_ul .nav-link div{
+   
+}
+
+#products_list .dropdown-toggle::after{
+    margin-left: 3.255em;   
+
+}
+
+#products_list #dropdown-basic{
+    padding-top: 5px;
+    margin-left: 1px;
+    padding: 0px 0px;
+    background-color: transparent;
+    color: black;
+    border: none;
+    font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: small;
+    color: #49494b;
+    
+}
+
  
 .dropdown-menu{
     border :none;

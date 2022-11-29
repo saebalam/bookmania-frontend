@@ -33,9 +33,8 @@ nav #search{
     margin-left: 8rem;
 } */
 
-#navlink:hover{
-    background-color: #ed4a6f;
-    color: white;
+.mynavbar .dropdown-toggle::after{
+    margin-left: 3.80em;
 }
 
 .search-li:hover{

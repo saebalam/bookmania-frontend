@@ -123,7 +123,7 @@ function MyNavbar(props) {
     if (loggedin == true) {
         console.log('logged is true');
         button = <ul className='navbar-nav ms-auto'>
-            <li className='nav-item' style={{ width: '78px', height: '41px', display: 'flex', alignItems: 'center', }}>
+            <li className='nav-item' style={{ width: '100px', height: '41px', display: 'flex', alignItems: 'center', }}>
                 {/* <Link to="/" onClick={logout} className='nav-link' id='navlink'>My Account</Link> */}
                 <Dropdown id='nav-link'>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -142,7 +142,7 @@ function MyNavbar(props) {
                     </Dropdown.Menu>
                 </Dropdown>
             </li>
-            <li className='nav-item' style={{ width: '166px', height: '41px', display: 'flex', alignItems: 'center', }}>
+            <li className='nav-item' style={{ width: '57px', height: '41px', display: 'flex', alignItems: 'center', }}>
                 {/* <div style={{ position: 'relative', zIndex: '10', width: '15px', height: '15px', position: 'relative', left: '22px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#7c7378', color: 'white', borderRadius: '50%' }}>
                     {wishlistQuantity_}
                 </div> */}

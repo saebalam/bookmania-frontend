@@ -52,13 +52,13 @@ const ListOfProducts = () => {
         <span>{pName}</span>
       </div>
 
-      <div className='container' style={{ display: 'flex', padding: '5px' }}>
+      <div className='container' style={{ display: 'flex',maxWidth:'100vw', padding: '5px',flexWrap:'wrap' }}>
         <div className='left' style={{ width: '45%', display: 'flex', justifyContent: 'space-evenly' }}>
-          <div style={{ width: '70px', height: '70px' }}>
+          <div style={{ width: '5vw', height: '15vh' }}>
             <img src={s_thumbnail} alt="" style={{ width: '100%', height: '100%', marginBottom: '7px', borderRadius: '5px' }} />
             <img src={s_thumbnail} alt="" style={{ width: '100%', height: '100%', marginBottom: '7px', borderRadius: '5px' }} />
           </div>
-          <div style={{ width: '410px', height: '500px' }}>
+          <div style={{ width: '30vw', maxHeight: '50vh' }}>
             <img src={s_thumbnail} alt="" style={{ width: '100%', height: '100%' }} />
           </div>
         </div>
