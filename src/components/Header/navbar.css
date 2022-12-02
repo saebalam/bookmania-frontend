@@ -4,7 +4,7 @@ nav{
 }
 
 nav #search{
-    width: 90%;
+    width: 100vw;
     margin-right: 5px;
 }
 .suggestion-box ul{
@@ -33,6 +33,10 @@ nav #search{
     margin-left: 8rem;
 } */
 
+.mynavbardropdown #dropdown-basic::after{
+    margin-left: 0.8rem !important;
+}
+
 #navlink:hover{
     background-color: #ed4a6f;
     color: white;
@@ -41,4 +45,25 @@ nav #search{
 .search-li:hover{
     color: #ed4a6f;
     cursor: pointer;
+}
+
+@media only screen and (min-width : 700px) and (max-width : 1000px) {
+    nav #search {
+        width: 65vw;
+        margin-right: 2rem;
+    }
+}
+
+@media only screen and (min-width : 450px) and (max-width : 750px) {
+    nav #search {
+        width: 45vw;
+        margin-right: 2rem;
+    }
+}
+
+@media only screen and (min-width : 300px) and (max-width : 449px) {
+    nav #search {
+        width: 35vw;
+        margin-right: 2rem;
+    }
 }

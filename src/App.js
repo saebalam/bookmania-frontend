@@ -26,7 +26,7 @@ import ResetPassword from './components/ForgotPassword/ResetPassword';
 function App() {
 
   // store.subscribe(()=>console.log("store",store.getState()))
-  const [userData, setUserData] = useState(false)                  //to check a user is loggedin
+  const [userData, setUserData] = useState(localStorage.getItem('loggedin'))                  //to check a user is loggedin
   const [featuredProducts, setFeaturedProducts] = useState(null)
   const [count, setCount] = useState(0);
   const [loggedin,setLoggedin]= useState(localStorage.getItem('loggedin'))
@@ -71,7 +71,7 @@ function App() {
       <div className="App">
         <Router>
           <ErrorBoundary>
-            <MyNavbar userData={userData} />
+            <MyNavbar userData={userData} setUser={setUser} />
 
           </ErrorBoundary>
           <Routes>
@@ -80,8 +80,8 @@ function App() {
             <Route exact path='/wishlist' element={<Wishlist />} />
             <Route exact path='/cart' element={<Cart />} />
             <Route exact path='register' element={<Register />} />
-            <Route exact path='/collections/:productName' element={<ProductsList />} />
-            <Route exact path='/productsList/:productName/:listOfProducts' element={<ProductDetails />} />
+            <Route exact path='/collections/:collection' element={<ProductsList />} />
+            <Route exact path='/products/:productName' element={<ProductDetails />} />
             <Route exact path='/checkEmail' element={<CheckEmail />} />
             <Route exact path='/resetPassword' element={<ResetPassword />} />
             <Route path='/*' element={<Error />} />

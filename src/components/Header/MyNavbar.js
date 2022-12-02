@@ -37,7 +37,7 @@ function MyNavbar(props) {
     const [search, setSearch] = useState("")
     const [suggestions, setSuggestions] = useState([])
     const [inputFocus, setInputFocus] = useState(true)
-    const [loggedin, setLoggedin] = useState(props.userData)
+    const [loggedin, setLoggedin] = useState(localStorage.getItem('loggedin'))
     const [wishlistQuantity, setWishlistQuantity] = useState([])
     const [cartQuantity, setCartQuantity] = useState([])
     const [searchActive,setSearchActive]=useState(false)
@@ -53,7 +53,7 @@ function MyNavbar(props) {
     // }
 
     let button;
-    console.log("my navbar userData is", props.userData)
+    console.log("my navbar props userData is", props)
     console.log('loggedin', loggedin)
 
     useEffect(() => {
@@ -91,6 +91,7 @@ function MyNavbar(props) {
     const logout = () => {
         localStorage.removeItem('accesstoken')
         localStorage.removeItem('loggedin')
+        console.log('props from app',props);
         props.setUser(false)
     }
 
@@ -109,8 +110,9 @@ function MyNavbar(props) {
                 .then(res => {
                     console.log("filteredres", res.data)
                     setSuggestions([])
-                    setSuggestions(res.data)
-                    console.log("sugg nav", suggestions);
+                    const temp_suggestions=[...new Set(res.data)]
+                    setSuggestions(temp_suggestions)
+                    console.log("sugg nav", temp_suggestions);
                 })
         } else {
             setSuggestions([])
@@ -122,8 +124,8 @@ function MyNavbar(props) {
 
     if (loggedin == true) {
         console.log('logged is true');
-        button = <ul className='navbar-nav ms-auto'>
-            <li className='nav-item' style={{ width: '78px', height: '41px', display: 'flex', alignItems: 'center', }}>
+        button = <ul className='navbar-nav ms-auto' style={{ display: 'flex', alignItems: 'center' }}>
+            <li className='nav-item mynavbardropdown' style={{ width: '105px', height: '41px', display: 'flex', alignItems: 'center', }}>
                 {/* <Link to="/" onClick={logout} className='nav-link' id='navlink'>My Account</Link> */}
                 <Dropdown id='nav-link'>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -131,18 +133,14 @@ function MyNavbar(props) {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">Accessories</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Books</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Computers</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Disks</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Electronics</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Fans</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Games</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Home accessories</Dropdown.Item>
+                        <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">Help</Dropdown.Item>
+                        <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+                        
                     </Dropdown.Menu>
                 </Dropdown>
             </li>
-            <li className='nav-item' style={{ width: '166px', height: '41px', display: 'flex', alignItems: 'center', }}>
+            <li className='nav-item' style={{ width: '57px', height: '41px', display: 'flex', alignItems: 'center', }}>
                 {/* <div style={{ position: 'relative', zIndex: '10', width: '15px', height: '15px', position: 'relative', left: '22px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#7c7378', color: 'white', borderRadius: '50%' }}>
                     {wishlistQuantity_}
                 </div> */}
@@ -193,9 +191,9 @@ function MyNavbar(props) {
                 <Navbar bg="light" expand="lg" fixed='top' style={{}} >
 
                     <Navbar.Brand style={{ color: '#ed4a6f' }}><Link to='/' className='navbar-brand' >BookMania</Link></Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    
                     <div id='search' >
-                        <input class="form-control mr-sm-2" style={{ position: 'relative', top: '0px' }} type="search" placeholder="Search" aria-label="Search" value={search} onChange={(e) => setSearch(e.target.value)} onFocus={() => setInputFocus(true)} />
+                        <input className="form-control" style={{ position: 'relative', top: '0px' }} type="search" placeholder="Search" aria-label="Search" value={search} onChange={(e) => setSearch(e.target.value)} onFocus={() => setInputFocus(true)} />
                         {(suggestions.length > 0 && inputFocus == true) &&
                             <div className='suggestion-box' style={{ position: 'absolute', top: '48.4px', paddingTop: '7px', backgroundColor: 'white', zIndex: "5", width: "76%" }}>
                                 <ul style={{ position: 'relative', top: '0px' }}>
@@ -210,6 +208,8 @@ function MyNavbar(props) {
                             </div>
                         }
                     </div>
+
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">

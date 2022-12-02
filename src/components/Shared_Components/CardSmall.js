@@ -73,7 +73,7 @@ const CardSmall = (props) => {
     }
 
     const showListOfProducts = () => {
-        nav(`/productsList/${props.pName}/${props.props.title}`)
+        nav(`/products/${props.props.title}`)
     }
 
     return (

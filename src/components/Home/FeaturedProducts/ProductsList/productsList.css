@@ -17,7 +17,7 @@
     color: rgb(128, 128, 128);
 }
 
-#nav-link div{
+#filter_ul #nav-link div{
     position: relative !important;
     transform: translate(-8px, 0px) !important;
     overflow: hidden;
@@ -45,7 +45,7 @@
     margin-left: 3.80em;
 }
 
-#dropdown-basic {
+#filter_ul #dropdown-basic {
     margin-left: 2px;
     display: flex;
     justify-content: space-between;

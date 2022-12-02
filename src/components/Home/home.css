@@ -53,7 +53,6 @@
 
 
 .featured-products-container{
-    /* border: 1px solid black; */
     display: flex;
     /* flex-wrap: wrap; */
     margin-left: 3px;
@@ -63,7 +62,7 @@
 @media only screen and (max-width: 1900px){
     /*Tablets [601px -> 1200px]*/
     .featured-products-container{
-        /* border: 1px solid black; */
+        
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
@@ -75,7 +74,6 @@
 @media only screen and (max-width: 1200px){
     /*Tablets [601px -> 1200px]*/
     .featured-products-container{
-        border: 1px solid black;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -85,7 +83,6 @@
 @media only screen and (max-width: 1000px){
 	/*Big smartphones [426px -> 600px]*/
     .featured-products-container{
-        border: 1px solid black;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;

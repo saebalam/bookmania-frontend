@@ -167,8 +167,8 @@ const Home = React.memo(({ userData }) => {
                             </Carousel>
 
                             <div>
-                                <ul className='ribbon'>
-                                    <Dropdown>
+                                <ul className='ribbon' style={{fontSize:'10px'}}>
+                                    <Dropdown style={{paddingTop:'4px'}}>
                                         <Dropdown.Toggle variant="success" id="dropdown-basic">
                                             Category
                                         </Dropdown.Toggle>
@@ -184,7 +184,7 @@ const Home = React.memo(({ userData }) => {
                                             <Dropdown.Item href="#/action-3">Home accessories</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                    <li><Link to='#'>Recommended For You</Link></li>
+                                    <li><Link to='#' style={{width:'1rem'}}>Recommended For You</Link></li>
                                     <li><Link to='#'>Today's Deal</Link></li>
                                     <li><Link to='#'>Help</Link></li>
                                 </ul>

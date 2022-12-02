@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './productDetails.css'
+import styles from './productDetails.module.css'
 import axios from 'axios'
 import { Link, useParams } from 'react-router-dom'
 import CardSmall from '../../../../Shared_Components/CardSmall'
@@ -33,10 +33,10 @@ const ListOfProducts = () => {
   }])
 
   const pName = useParams().productName
-  console.log('in list params', pName)
+  console.log('in prod details list params', pName)
 
   useEffect(() => {
-    axios.get(`/productsList/${pName}`)
+    axios.get(`/products/${pName}`)
       .then(res => {
         if (res.data.length != null && res.data.length > 0) {
           setListOfProducts([...listOfProducts, res.data])
@@ -47,13 +47,13 @@ const ListOfProducts = () => {
 
   return (
     <div>
-      <div className='myBreadcrumb' style={{ marginTop: '60px', marginBottom: '0px' }}>
+      <div className='myBreadcrumb'>
         <Link to='/' className='link' >Home / </Link>
         <span>{pName}</span>
       </div>
 
       <div className='container' style={{ display: 'flex', padding: '5px' }}>
-        <div className='left' style={{ width: '45%', display: 'flex', justifyContent: 'space-evenly' }}>
+        <div className={styles.left}>
           <div style={{ width: '70px', height: '70px' }}>
             <img src={s_thumbnail} alt="" style={{ width: '100%', height: '100%', marginBottom: '7px', borderRadius: '5px' }} />
             <img src={s_thumbnail} alt="" style={{ width: '100%', height: '100%', marginBottom: '7px', borderRadius: '5px' }} />
@@ -64,7 +64,7 @@ const ListOfProducts = () => {
         </div>
         <div className='right' style={{ width: '45%' }}>
           <div style={{display:'flex',flexDirection:'column',alignItems:'flex-start'}}>
-            <p style={{fontSize:'1.5rem'}}>Beige Festive Wear Cotton Short Kurta</p>
+            <p style={{fontSize:'1.5rem'}}>{pName}</p>
             <p>$400</p>
             <p>incl. of all taxes</p>
           </div>

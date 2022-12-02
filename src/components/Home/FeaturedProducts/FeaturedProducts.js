@@ -29,18 +29,18 @@ const FeaturedProducts = () => {
         <motion.div className='row' initial="initial"
             animate="animate"
             variants={blackBox}>
-            <div className='row1'>
+            {/* <div className='row1' style={{display:'flex',flexWrap:'wrap'}}>
                 <div><Link to={{ pathname: `/collections/Bedsheets` }}><img src={card} alt="" /></Link>  </div>
                 <div><Link to={{ pathname: `/collections/tshirt` }}> <img src={card2} alt="" /></Link></div>
                 <div><Link to={{ pathname: `/collections/shoes` }}> <img src={card3} alt="" /></Link></div>
                 <div><Link to={{ pathname: `/collections/1` }}> <img src={card4} alt="" /></Link></div>
             </div>
             <div className='row2'>
-                <div><Link to={{ pathname: `/collections/1` }}> <img src={card} alt="" /> </Link></div>
-                <div><Link to={{ pathname: `/collections/1` }}> <img src={card2} alt="" /></Link></div>
+                <div ><Link to={{ pathname: `/collections/1` }}> <img src={card} alt="" /> </Link></div>
+                <div ><Link to={{ pathname: `/collections/1` }}> <img src={card2} alt="" /></Link></div>
             </div>
             <div className='row3'>
-                <div className='col1'>
+                <div className='col1 col-md-4'>
                     <div><Link to={{ pathname: `/collections/1` }}> <img src={card} alt="" /> </Link></div>
                 </div>
                 <div className='col2'>
@@ -52,7 +52,32 @@ const FeaturedProducts = () => {
                     <div><Link to={{ pathname: `/collections/1` }}> <img src={card2} alt="" /> </Link></div>
                 </div>
 
+            </div> */}
+
+            <div className='box'>
+
+                <div className='columns' >
+                    <div ><Link to={{ pathname: `/collections/Bedsheets` }}><img src={card} alt="" /></Link>  </div>
+                    <div><Link to={{ pathname: `/collections/tshirt` }}> <img src={card2} alt="" /></Link></div>
+                    <div><Link to={{ pathname: `/collections/shoes` }}> <img src={card3} alt="" /></Link></div>
+                </div>
+
+                <div className='columns'>
+                    <div><Link to={{ pathname: `/collections/1` }}> <img src={card4} alt="" /></Link></div>
+                    <div ><Link to={{ pathname: `/collections/1` }}> <img src={card} alt="" /> </Link></div>
+                    <div ><Link to={{ pathname: `/collections/1` }}> <img src={card2} alt="" /></Link></div>
+                </div>
+
+                <div className='columns'>
+                    <div><Link to={{ pathname: `/collections/1` }}> <img src={card} alt="" /> </Link></div>
+                    <div> <Link to={{ pathname: `/collections/1` }}><img src={card} alt="" /></Link> </div>
+                    <div><Link to={{ pathname: `/collections/1` }}> <img src={card2} alt="" /></Link></div>
+                </div>
+            
             </div>
+
+
+
         </motion.div>
 
     )
