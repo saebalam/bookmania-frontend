@@ -19,8 +19,21 @@ import ProductsList from './components/Home/FeaturedProducts/ProductsList/Produc
 import ProductDetails from './components/Home/FeaturedProducts/ProductsList/ProductDetails/ProductDetails'
 import ErrorBoundary from './components/Shared_Components/ErrorBoundary';
 import { AnimatePresence } from 'framer-motion/dist/framer-motion'
+import ScaleLoader from "react-spinners/ScaleLoader";
 import CheckEmail from './components/ForgotPassword/CheckEmail';
 import ResetPassword from './components/ForgotPassword/ResetPassword';
+import { useAuth0 } from '@auth0/auth0-react';
+import PrivateRoute from './components/Shared_Components/PrivateRoute';
+
+const override: CSSProperties = {
+  position: "absolute",
+  top: '300px',
+  left: '49%',
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
+
+};
 
 
 function App() {
@@ -29,7 +42,8 @@ function App() {
   const [userData, setUserData] = useState(localStorage.getItem('loggedin'))                  //to check a user is loggedin
   const [featuredProducts, setFeaturedProducts] = useState(null)
   const [count, setCount] = useState(0);
-  const [loggedin,setLoggedin]= useState(localStorage.getItem('loggedin'))
+  const [loggedin, setLoggedin] = useState(localStorage.getItem('loggedin'))
+  const { isAuthenticated, loginWithRedirect, logout, user, isLoading } = useAuth0();
 
   // useEffect(() => {
   //   axios.get('user')
@@ -45,7 +59,7 @@ function App() {
 
   // }, [userData])
 
-  const setUser=(val)=>{
+  const setUser = (val) => {
     setUserData(val)
   }
 
@@ -54,8 +68,8 @@ function App() {
     axios.get('user/featuredProducts')
       .then((res) => {
         const isLoggedin = localStorage.getItem('loggedin')
-        console.log('loggedim',isLoggedin)
-        console.log(res.data)
+        // console.log('loggedim', isLoggedin)
+        // console.log(res.data)
         if (isLoggedin == "true") {
           setFeaturedProducts(res.data)
         }
@@ -67,28 +81,39 @@ function App() {
 
 
   return (
-    <AnimatePresence>
-      <div className="App">
-        <Router>
-          <ErrorBoundary>
-            <MyNavbar userData={userData} setUser={setUser} />
+    <div>
+      {(!isLoading)
+        ? <AnimatePresence>
+          <div className="App">
+            <Router>
+              <ErrorBoundary>
+                <MyNavbar userData={userData} setUser={setUser} />
 
-          </ErrorBoundary>
-          <Routes>
-            <Route exact path='/' element={<Home userData={userData} />} />
-            <Route exact path='/login' element={<Login setUser={setUser}  />} />
-            <Route exact path='/wishlist' element={<Wishlist />} />
-            <Route exact path='/cart' element={<Cart />} />
-            <Route exact path='register' element={<Register />} />
-            <Route exact path='/collections/:collection' element={<ProductsList />} />
-            <Route exact path='/products/:productName' element={<ProductDetails />} />
-            <Route exact path='/checkEmail' element={<CheckEmail />} />
-            <Route exact path='/resetPassword' element={<ResetPassword />} />
-            <Route path='/*' element={<Error />} />
-          </Routes>
-        </Router>
-      </div>
-    </AnimatePresence>
+              </ErrorBoundary>
+              <Routes>
+                <Route exact path='/' element={<Home userData={userData} />} />
+                <Route exact path='/login' element={<Login setUser={setUser} />} />
+                {/* <Route exact path='/wishlist' element={<Wishlist />} /> */}
+
+                <Route exact path='/wishlist' element={<PrivateRoute />}>
+                  <Route exact path='/wishlist' element={<Wishlist />} />
+                </Route>
+
+                <Route exact path='/cart' element={<Cart />} />
+                <Route exact path='register' element={<Register />} />
+                <Route exact path='/collections/:collection' element={<ProductsList />} />
+                <Route exact path='/products/:productName' element={<ProductDetails />} />
+                <Route exact path='/checkEmail' element={<CheckEmail />} />
+                <Route exact path='/resetPassword' element={<ResetPassword />} />
+                <Route path='/*' element={<Error />} />
+              </Routes>
+            </Router>
+          </div>
+        </AnimatePresence>
+
+        : <ScaleLoader color="blue" loading={isLoading} cssOverride={override} size={150} />
+      }
+    </div>
   );
 }
 

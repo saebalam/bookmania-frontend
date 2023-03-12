@@ -3,7 +3,7 @@ const istate={
 }
 
 const cartQuantityReducer=(state=istate,action)=>{
-    console.log('cart reducer called');
+    // console.log('cart reducer called');
     switch(action.type){
         case("INCREASE_CART_QUANTITY"): return {
             cartQuantity:state.cartQuantity+1

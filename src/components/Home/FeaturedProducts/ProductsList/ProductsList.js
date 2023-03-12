@@ -43,6 +43,8 @@ const ProductsList = () => {
   }
   )
 
+  const [filterModal, setFilterModal] = useState(false)
+
   const pName = useParams().collection
 
   const handleCheckbox = (e) => {
@@ -64,6 +66,13 @@ const ProductsList = () => {
     const value = e.target.value
     console.log('value', value)
     setSort(value)
+  }
+
+  //handle small size open filter modal
+  const handleFilterModal=(width)=>{
+    if(width<=1000){
+      setFilterModal(true)
+    }
   }
 
   useEffect(() => {
@@ -112,7 +121,7 @@ const ProductsList = () => {
 
 
   return (
-    <div>
+    <div style={{ maxWidth: '100vw' }}>
       <div className='myBreadcrumb' style={{ marginTop: '60px', marginBottom: '0px' }}>
         <Link to='/' className='link' >Home / </Link><span>{pName}</span>
       </div>
@@ -120,11 +129,11 @@ const ProductsList = () => {
       <div>
         <p style={{ fontSize: '20px' }}>{pName}</p>
       </div>
-
+      {console.log(window.innerWidth)}
       <div style={{ display: 'flex', justifyContent: 'space-between', }}>
-        <div style={{ width: '15%' }}>
-          <p style={{ width: '147px', textAlign: 'left', marginLeft: '29px', marginBottom: '15px', paddingBottom: '5px', borderBottom: '1px solid #cfc7c7', fontSize: '19px' }}>Filters</p>
-          <ul id='filter_ul'>
+        <button onClick={()=>handleFilterModal(window.innerWidth)} style={{ width: '15vw', textAlign: 'left', marginBottom: '15px', paddingBottom: '5px', borderBottom: '1px solid #cfc7c7', fontSize: '19px' }}>Filters</button>
+        <div className={filterModal ? 'showFilter':'hideFilter'} style={{ marginLeft: '15px', marginRight: '10px' }}>
+          <ul id='filter_ul' >
             <li ><Dropdown id='nav-link' autoClose={false}>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 Product Type
@@ -168,11 +177,6 @@ const ProductsList = () => {
                 <Dropdown.Item href="#/action-1">Accessories</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Books</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">Computers</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Disks</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Electronics</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Fans</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Games</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Home accessories</Dropdown.Item>
               </Dropdown.Menu>
               <Dropdown.Divider />
             </Dropdown></li>
@@ -185,11 +189,6 @@ const ProductsList = () => {
                 <Dropdown.Item href="#/action-1">Accessories</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Books</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">Computers</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Disks</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Electronics</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Fans</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Games</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Home accessories</Dropdown.Item>
               </Dropdown.Menu>
               <Dropdown.Divider />
             </Dropdown></li>
@@ -208,11 +207,11 @@ const ProductsList = () => {
           </ul>
         </div>
 
-        <div style={{ width: '83%' }}>
+        <div style={{ width: '83%', paddingLeft: '5px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', padding: '2px 10px' }}>
             <div>{productsList.length} Products</div>
 
-            <form style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'flex-end', width: '15vw' }}>
+            <form style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'flex-end' }}>
               <label htmlFor="sort">Sort By:</label>
               <select name="sort" id="" value={sort} onChange={updateSort}>
                 <option value="price-lowest">Price (Lowest)</option>

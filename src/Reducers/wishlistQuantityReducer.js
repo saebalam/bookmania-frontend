@@ -3,7 +3,7 @@ const istate={
 }
 
 const wishlistQuantityReducer=(state=istate,action)=>{
-    console.log('wishlist reducer called');
+    // console.log('wishlist reducer called');
     switch(action.type){
         case("INCREASE_WISHLIST_QUANTITY"): return {
             wishlistQuantity:state.wishlistQuantity+1

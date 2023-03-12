@@ -1,0 +1,46 @@
+#Copy Data sets to dr server
+
+#india_manpower
+55 4 * * *  scp /sasdata/sas-datasets/public/MANPOWER_BILLED_ETL.sashdat root@192.168.20.12:/sasdatasets/Public/
+00 5 * * *  scp /sasdata/sas-datasets/public/MANPOWER_REVAMP_ETL.sashdat root@192.168.20.12:/sasdatasets/Public/
+25 5 * * *  scp /sasdata/sas-datasets/public/MANPOWER_REVAMP_FILTERS_ETL.sashdat root@192.168.20.12:/sasdatasets/Public/
+10 5 * * *  scp /sasdata/sas-datasets/public/MANPOWER_REVAMP_SNP_ETL.sashdat root@192.168.20.12:/sasdatasets/Public/
+
+#fulfilment
+55 7 * * *  scp /sasdata/sas-datasets/public/FULFILMENT_ON_BILLING_ETL_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+55 7 * * *  scp /sasdata/sas-datasets/public/DATES_ETL.sashdat root@192.168.20.12:/sasdatasets/Public/
+55 7 * * *  scp /sasdata/sas-datasets/public/FULFILMENT_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+55 7 * * *  scp /sasdata/sas-datasets/public/FUTURE_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+55 7 * * *  scp /sasdata/sas-datasets/public/OFFERS_EXTENDED_ETL_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+55 7 * * *  scp /sasdata/sas-datasets/public/ON_BILLING_ETL_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+55 7 * * *  scp /sasdata/sas-datasets/public/PROCUREMENT_JOINEES_ETL_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+
+#projection_foresight
+55 4 * * *  scp /sasdata/sas-datasets/public/DAILY_VARIANCE.sashdat root@192.168.20.12:/sasdatasets/Public/
+00 4 * * *  scp /sasdata/sas-datasets/public/PROJECTION_FORESIGHT_DAILY_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+20 14 * * *  scp /sasdata/sas-datasets/public/SALESFORCE_PIPELINE_SUMMARY_PROD_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+
+#mis_delivery_report
+
+55 23 * * *  scp /sasdata/sas-datasets/public/AGING_FINAL_CUSTOMER_LOB_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+55 15 * * *  scp /sasdata/sas-datasets/public/ACCESS_AR_P_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+55 23 * * *  scp /sasdata/sas-datasets/public/AGING_FINAL_CUSTOMER_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+55 23 * * *  scp /sasdata/sas-datasets/public/NEW_CUSTOMER_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+30 9 * * *  scp /sasdata/sas-datasets/public/MIS_AUTO_OPEN_MONTH.sashdat root@192.168.20.12:/sasdatasets/Public/
+45 7 * * *  scp /sasdata/sas-datasets/public/MIS_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+
+#bsc
+
+35 5 * * *  scp /sasdata/sas-datasets/public/ATTRITION_INDIA_VERTICAL_ETL.sashdat root@192.168.20.12:/sasdatasets/Public/
+00 8 * * *  scp /sasdata/sas-datasets/public/BSC_FILTER_ETL_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+20 6 * * *  scp /sasdata/sas-datasets/public/CUSTOMER_JOIN_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+55 4 * * *  scp /sasdata/sas-datasets/public/LOCATION_FILTERS_ETL_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+55 5 * * *  scp /sasdata/sas-datasets/public/MANPOWER_BILLING_FORECAST_ETL_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+55 5 * * *  scp /sasdata/sas-datasets/public/MANPOWER_DAILY_ETL_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+30 1 * * *  scp /sasdata/sas-datasets/public/MANPOWER_MONTHLY_BILLRATE_FINAL.sashdat root@192.168.20.12:/sasdatasets/Public/
+00 7  * * *  scp /sasdata/sas-datasets/public/MANPOWER_MONTHLY_RELEASE_ETL.sashdat root@192.168.20.12:/sasdatasets/Public/
+35 5 * * *  scp /sasdata/sas-datasets/public/MANPOWER_MONTHLY_TREND_ETL_AUTO.sashdat root@192.168.20.12:/sasdatasets/Public/
+
+setTotal(total=>{
+    
+})

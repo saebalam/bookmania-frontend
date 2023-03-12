@@ -103,7 +103,8 @@ const Home = React.memo(({ userData }) => {
     // console.log("bbj",featuredProducts);
 
     return (
-        <motion.div
+        <div>
+            <motion.div
             initial="initial"
             animate="animate"
             variants={blackBox}>
@@ -209,6 +210,7 @@ const Home = React.memo(({ userData }) => {
                 </div>
             </div >
         </motion.div>
+        </div>
     )
 })
 

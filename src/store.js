@@ -14,8 +14,8 @@ const rootReducer=combineReducers({
     wishlistQuantityReducer:wishlistQuantityReducer
 })
 
-const store = createStore(rootReducer,applyMiddleware(thunk,logger))
-store.subscribe(()=>console.log("store filtered suggestion",store.getState()))
+const store = createStore(rootReducer,applyMiddleware(thunk))
+// store.subscribe(()=>console.log("store filtered suggestion",store.getState()))
 
 export default store 
 

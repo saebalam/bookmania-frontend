@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import filteredProducts from '../../Action_Creators/filteredProducts';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../../../node_modules/jquery/dist/jquery'
+import { useAuth0 } from '@auth0/auth0-react'
 
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -40,9 +41,10 @@ function MyNavbar(props) {
     const [loggedin, setLoggedin] = useState(localStorage.getItem('loggedin'))
     const [wishlistQuantity, setWishlistQuantity] = useState([])
     const [cartQuantity, setCartQuantity] = useState([])
-    const [searchActive,setSearchActive]=useState(false)
+    const [searchActive, setSearchActive] = useState(false)
     const dispatch = useDispatch()
     const nav = useNavigate()
+    const { isAuthenticated, loginWithRedirect, logout, user, isLoading } = useAuth0();
 
     const cartQuantity_ = useSelector(state => state.cartQuantityReducer.cartQuantity)
     const wishlistQuantity_ = useSelector(state => state.wishlistQuantityReducer.wishlistQuantity)
@@ -53,11 +55,11 @@ function MyNavbar(props) {
     // }
 
     let button;
-    console.log("my navbar props userData is", props)
-    console.log('loggedin', loggedin)
+    // console.log("my navbar props userData is", props)
+    // console.log('loggedin', loggedin)
 
     useEffect(() => {
-        console.log('in useeff');
+        // console.log('in useeff');
         setLoggedin(props.userData)
     }, [props.userData])
 
@@ -88,15 +90,15 @@ function MyNavbar(props) {
     // },[])
 
 
-    const logout = () => {
-        localStorage.removeItem('accesstoken')
-        localStorage.removeItem('loggedin')
-        console.log('props from app',props);
-        props.setUser(false)
-    }
+    // const logout = () => {
+    //     localStorage.removeItem('accesstoken')
+    //     localStorage.removeItem('loggedin')
+    //     console.log('props from app',props);
+    //     props.setUser(false)
+    // }
 
     const onSearchItemClick = (productName) => {
-        console.log('searched clicked is', productName);
+        // console.log('searched clicked is', productName);
         setSearch('')
         nav(`/collections/${productName}`)
         setInputFocus(false)
@@ -108,11 +110,11 @@ function MyNavbar(props) {
             setSearchActive(true)
             axios.post(`/products/${search}`)
                 .then(res => {
-                    console.log("filteredres", res.data)
+                    // console.log("filteredres", res.data)
                     setSuggestions([])
-                    const temp_suggestions=[...new Set(res.data)]
+                    const temp_suggestions = [...new Set(res.data)]
                     setSuggestions(temp_suggestions)
-                    console.log("sugg nav", temp_suggestions);
+                    // console.log("sugg nav", temp_suggestions);
                 })
         } else {
             setSuggestions([])
@@ -120,116 +122,116 @@ function MyNavbar(props) {
         }
     }, [search])
 
-
-
-    if (loggedin == true) {
-        console.log('logged is true');
-        button = <ul className='navbar-nav ms-auto' style={{ display: 'flex', alignItems: 'center' }}>
-            <li className='nav-item mynavbardropdown' style={{ width: '105px', height: '41px', display: 'flex', alignItems: 'center', }}>
-                {/* <Link to="/" onClick={logout} className='nav-link' id='navlink'>My Account</Link> */}
-                <Dropdown id='nav-link'>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        My Account
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Help</Dropdown.Item>
-                        <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
-                        
-                    </Dropdown.Menu>
-                </Dropdown>
-            </li>
-            <li className='nav-item' style={{ width: '57px', height: '41px', display: 'flex', alignItems: 'center', }}>
-                {/* <div style={{ position: 'relative', zIndex: '10', width: '15px', height: '15px', position: 'relative', left: '22px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#7c7378', color: 'white', borderRadius: '50%' }}>
-                    {wishlistQuantity_}
-                </div> */}
-                <Link to='/wishlist' className='nav-link' id='navlink' style={{ display: 'flex' }}><FontAwesomeIcon style={{ fontSize: '1.5em', width: '25px', height: '25px' }} icon={faBagShopping} /> <span>({wishlistQuantity_})</span>
-                </Link>
-            </li>
-            <li className='nav-item' style={{ width: '57px', height: '41px', display: 'flex', alignItems: 'center', }}>
-                {/* <div style={{ position: 'relative', zIndex: '10', width: '15px', height: '15px', position: 'relative', left: '22px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#7c7378', color: 'white', borderRadius: '50%' }}>
-                    {cartQuantity_}
-                </div> */}
-                <Link to='/cart' className='nav-link' id='navlink' style={{ display: 'flex' }}><FontAwesomeIcon style={{ fontSize: '1.5em', width: '25px', height: '25px' }} icon={faCartShopping} /> <span>({cartQuantity_})</span>
-                </Link>
-            </li>
-        </ul>
-
-    } else {
-        button = <ul className='navbar-nav ms-auto' style={{ display: 'flex', alignItems: 'center' }}>
-            <li className='nav-item' style={{ width: '60px', height: '41px', display: 'flex', alignItems: 'center', }}>
-                <Link to="/login" className='nav-link' id='navlink' style={{ fontWeight: 'bold', fontSize: '16px' }}>Login</Link>
-            </li>
-            <li className='nav-item' >
-                {/* <div style={{ position: 'relative',zIndex:'10', width: '15px', height: '15px', position: 'relative', left: '22px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#7c7378',color:'white', borderRadius: '50%' }}>
-                    {wishlistQuantity_}
-                </div> */}
-                <Link to='/wishlist' className='nav-link' id='navlink' style={{ display: 'flex' }} ><FontAwesomeIcon style={{ fontSize: '1.5em', width: '25px', height: '25px' }} icon={faBagShopping} /> ({wishlistQuantity_}) </Link>
-            </li>
-            <li className='nav-item'>
-                {/* <div style={{ position: 'relative',zIndex:'10', width: '15px', height: '15px', position: 'relative', left: '22px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#7c7378',color:'white', borderRadius: '50%' }}>
-                    {cartQuantity_}
-                </div> */}
-                <Link to='/cart' className='nav-link' id='navlink' style={{ display: 'flex' }} ><FontAwesomeIcon style={{ fontSize: '1.5em', width: '25px', height: '25px' }} icon={faCartShopping} /> <span>({cartQuantity_})</span>
-                </Link>
-            </li>
-
-        </ul>
-    }
-
-
-
     return (
-        <motion.div
-            initial="initial"
-            animate="animate"
-            variants={blackBox}>
+        <div>
+            <motion.div
+                initial="initial"
+                animate="animate"
+                variants={blackBox}>
 
 
-            <div style={{ zIndex: '3', border: '2px solid pink' }}>
-                <Navbar bg="light" expand="lg" fixed='top' style={{}} >
+                <div style={{ zIndex: '3', border: '2px solid pink' }}>
+                    <Navbar bg="light" expand="lg" fixed='top' style={{}} >
 
-                    <Navbar.Brand style={{ color: '#ed4a6f' }}><Link to='/' className='navbar-brand' >BookMania</Link></Navbar.Brand>
-                    
-                    <div id='search' >
-                        <input className="form-control" style={{ position: 'relative', top: '0px' }} type="search" placeholder="Search" aria-label="Search" value={search} onChange={(e) => setSearch(e.target.value)} onFocus={() => setInputFocus(true)} />
-                        {(suggestions.length > 0 && inputFocus == true) &&
-                            <div className='suggestion-box' style={{ position: 'absolute', top: '48.4px', paddingTop: '7px', backgroundColor: 'white', zIndex: "5", width: "76%" }}>
-                                <ul style={{ position: 'relative', top: '0px' }}>
-                                    {(suggestions.length > 0) &&
-                                        suggestions.map(eachSuggestion => {
-                                            console.log("each", eachSuggestion);
-                                            return <li className='search-li' onClick={() => onSearchItemClick(eachSuggestion)} style={{ color: '#ed4a6f', width: '100%', paddingBottom: '5px' }}>{eachSuggestion} </li>
-                                        })
-                                    }
-                                </ul>
+                        <Navbar.Brand style={{ color: '#ed4a6f' }}><Link to='/' className='navbar-brand' >BookMania</Link></Navbar.Brand>
 
-                            </div>
-                        }
-                    </div>
+                        <div id='search' >
+                            <input className="form-control" style={{ position: 'relative', top: '0px' }} type="search" placeholder="Search" aria-label="Search" value={search} onChange={(e) => setSearch(e.target.value)} onFocus={() => setInputFocus(true)} />
+                            {(suggestions.length > 0 && inputFocus == true) &&
+                                <div className='suggestion-box' style={{ position: 'absolute', top: '48.4px', paddingTop: '7px', backgroundColor: 'white', zIndex: "5", width: "76%" }}>
+                                    <ul style={{ position: 'relative', top: '0px' }}>
+                                        {(suggestions.length > 0) &&
+                                            suggestions.map(eachSuggestion => {
+                                                // console.log("each", eachSuggestion);
+                                                return <li className='search-li' onClick={() => onSearchItemClick(eachSuggestion)} style={{ color: '#ed4a6f', width: '100%', paddingBottom: '5px' }}>{eachSuggestion} </li>
+                                            })
+                                        }
+                                    </ul>
 
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                                </div>
+                            }
+                        </div>
 
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="me-auto">
-                            {/* <Nav.Link href="#home">Home</Nav.Link>
-                            <Nav.Link href="#link">Link</Nav.Link> */}
-                            {button}
-                        </Nav>
-                    </Navbar.Collapse>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-                </Navbar>
-            </div>
+                        <Navbar.Collapse id="basic-navbar-nav">
+                            <Nav className="me-auto">
+                                {/* {button} */}
 
-            {/* {(searchActive) &&
-                <div>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique at quo adipisci eaque, illum delectus sit nostrum, cupiditate dolor hic sequi. Excepturi eius quam quisquam molestias nobis facere repellendus est sunt eveniet voluptate accusantium assumenda perferendis unde, iste neque ipsam impedit consequuntur officiis? Iure a commodi alias doloribus vitae possimus, corrupti nobis aut at repellat dicta exercitationem, aspernatur, in natus distinctio soluta autem inventore quam dolores atque? Distinctio id, quisquam a ab numquam nobis sunt nemo, optio quos voluptas totam consequuntur aliquam velit exercitationem. Molestiae voluptatum, nobis nesciunt expedita voluptate laboriosam obcaecati doloremque facere modi qui amet, dolorum, doloribus nisi commodi quis. Eum, perspiciatis? Ex hic quam, rerum magni adipisci inventore fugiat nostrum incidunt voluptatum officiis ea tempore impedit in officia odio, perspiciatis cum fuga quidem et iste obcaecati? Asperiores blanditiis, tempore doloremque omnis commodi deleniti eos? Accusamus, ullam? Sapiente odit mollitia eligendi, repellat tempore eos quaerat magni libero sequi, eum iure minima beatae possimus. Earum dolorum numquam rem velit dolor eveniet temporibus odit impedit harum eligendi laboriosam veniam cupiditate tenetur, non iure, reiciendis suscipit cumque corrupti. Eaque quasi delectus, sunt quod voluptatibus eveniet accusantium esse rem quis quaerat cum! Ducimus numquam odio dicta quisquam ipsum neque, optio possimus nisi?
-                    <Link to='/login'>Login</Link>
+                                {(isAuthenticated)
+                                    ? <ul className='navbar-nav ms-auto' style={{ display: 'flex', alignItems: 'center' }}>
+                                        <li className='nav-item mynavbardropdown' style={{ width: '70px', height: '41px', display: 'flex', alignItems: 'center', }}>
+                                            {/* <Link to="/" onClick={logout} className='nav-link' id='navlink'>My Account</Link> */}
+                                            <Dropdown id='nav-link'>
+                                                <Dropdown.Toggle variant="success" id="dropdown-basic" style={{ paddingTop: '5px' }}>
+                                                    {(user.name)
+                                                        ? <img style={{ width: '30px', height: '30px', borderRadius: '50px' }} src={user.picture} alt="user" />
+                                                        : <div>user</div>
+                                                    }
+
+                                                </Dropdown.Toggle>
+
+                                                <Dropdown.Menu>
+                                                    <Dropdown.Item href="#/action-1">
+                                                        {(user.name)
+                                                            ? <div>{user.name}</div>
+                                                            : <div>user</div>
+                                                        }
+                                                    </Dropdown.Item>
+                                                    <Dropdown.Item href="#/action-2">Help</Dropdown.Item>
+                                                    <Dropdown.Item onClick={() => logout({ returnTo: window.location.origin })}>Logout</Dropdown.Item>
+
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </li>
+                                        <li className='nav-item' style={{ width: '57px', height: '41px', display: 'flex', alignItems: 'center', }}>
+                                            {/* <div style={{ position: 'relative', zIndex: '10', width: '15px', height: '15px', position: 'relative', left: '22px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#7c7378', color: 'white', borderRadius: '50%' }}>
+                                        {wishlistQuantity_}
+                                    </div> */}
+                                            <Link to='/wishlist' className='nav-link' id='navlink' style={{ display: 'flex' }}><FontAwesomeIcon style={{ fontSize: '1.5em', width: '25px', height: '25px' }} icon={faBagShopping} /> <span>({wishlistQuantity_})</span>
+                                            </Link>
+                                        </li>
+                                        <li className='nav-item' style={{ width: '57px', height: '41px', display: 'flex', alignItems: 'center', }}>
+                                            {/* <div style={{ position: 'relative', zIndex: '10', width: '15px', height: '15px', position: 'relative', left: '22px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#7c7378', color: 'white', borderRadius: '50%' }}>
+                                        {cartQuantity_}
+                                    </div> */}
+                                            <Link to='/cart' className='nav-link' id='navlink' style={{ display: 'flex' }}><FontAwesomeIcon style={{ fontSize: '1.5em', width: '25px', height: '25px' }} icon={faCartShopping} /> <span>({cartQuantity_})</span>
+                                            </Link>
+                                        </li>
+                                    </ul>
+
+                                    : <ul className='navbar-nav ms-auto' style={{ display: 'flex', alignItems: 'center' }}>
+                                        <li className='nav-item' style={{ width: '60px', height: '41px', display: 'flex', alignItems: 'center', }}>
+                                            {/* <Link to="/login" className='nav-link' id='navlink' style={{ fontWeight: 'bold', fontSize: '16px' }}>Login</Link> */}
+                                            <button className='nav-link' id='navlink' onClick={loginWithRedirect} style={{ fontWeight: 'bold', fontSize: '16px' }}>Login</button>
+                                        </li>
+                                        <li className='nav-item' >
+                                            {/* <div style={{ position: 'relative',zIndex:'10', width: '15px', height: '15px', position: 'relative', left: '22px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#7c7378',color:'white', borderRadius: '50%' }}>
+                                        {wishlistQuantity_}
+                                    </div> */}
+                                            <Link to='/wishlist' className='nav-link' id='navlink' style={{ display: 'flex' }} ><FontAwesomeIcon style={{ fontSize: '1.5em', width: '25px', height: '25px' }} icon={faBagShopping} /> ({wishlistQuantity_}) </Link>
+                                        </li>
+                                        <li className='nav-item'>
+                                            {/* <div style={{ position: 'relative',zIndex:'10', width: '15px', height: '15px', position: 'relative', left: '22px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#7c7378',color:'white', borderRadius: '50%' }}>
+                                        {cartQuantity_}
+                                    </div> */}
+                                            <Link to='/cart' className='nav-link' id='navlink' style={{ display: 'flex' }} ><FontAwesomeIcon style={{ fontSize: '1.5em', width: '25px', height: '25px' }} icon={faCartShopping} /> <span>({cartQuantity_})</span>
+                                            </Link>
+                                        </li>
+
+                                    </ul>
+
+                                }
+
+
+                            </Nav>
+                        </Navbar.Collapse>
+
+                    </Navbar>
                 </div>
-            } */}
+            </motion.div>
 
-        </motion.div>
+        </div>
     )
 }
 

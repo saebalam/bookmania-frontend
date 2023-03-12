@@ -35,7 +35,7 @@
 
 #filter_ul li{
     /* border: 1px solid black; */
-    width: 150px;
+    width: 15vw;
     margin: 0 0 10px 0;
 
     
@@ -55,4 +55,22 @@
  
 .dropdown-menu{
     border :none;
+}
+
+
+
+
+@media only screen and (max-width : 1030px){
+    .filter{
+        position: absolute;
+        background-color: orangered;
+        width: 50%;
+        height: 100vh;
+        z-index: 1000;
+        display: none;
+    }
+   
+    .hideFilter{
+        display: none;
+    }
 }
