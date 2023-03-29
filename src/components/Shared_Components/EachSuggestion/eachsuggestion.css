@@ -1,0 +1,32 @@
+.eachsuggestion{
+    display: flex;
+    cursor: pointer;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 3px;
+    padding: 2px;
+}
+.eachsuggestion:hover{
+    background-color: antiquewhite;
+}
+/* .eachsuggestion ul li{
+    list-style-type: none;
+} */
+.eachsuggestion .img-wrapper{
+    display: block;
+    
+    width: 60px;
+    height: 60px;
+    margin-right: 13px;
+}
+
+.eachsuggestion .img-wrapper img{
+    width: 100%;
+}
+
+.eachsuggestion .info{
+    flex-direction: column;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+}

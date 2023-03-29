@@ -1,0 +1,98 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}.login-text{
+    position: absolute;
+    top: 200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper{
+    /* margin-top: -40px; */
+    
+}
+
+/* .carousel-item img{
+    width: 1347px;
+    height: 292px;
+} */
+.ribbon{
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+    margin: 5px 0px;
+    padding-left: 4px;
+}
+.ribbon li{
+    list-style: none;
+    margin: 0px 10px;
+    font-weight: bold;
+    font-size: small;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #49494b;
+}
+
+#dropdown-basic{
+    padding: 0px 0px;
+    background-color: transparent;
+    color: black;
+    border: none;
+    font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: small;
+    color: #49494b;
+    margin-top: -6px;
+    margin-left: 9px;
+}
+.show>.btn-success.dropdown-toggle:focus{
+    box-shadow: none;
+}
+.btn-success:focus{
+    box-shadow: none;
+}
+
+
+.featured-products-container{
+    display: flex;
+    /* flex-wrap: wrap; */
+    margin-left: 3px;
+    justify-content: space-evenly;
+    flex-grow: 1;
+}
+@media only screen and (max-width: 1900px){
+    /*Tablets [601px -> 1200px]*/
+    .featured-products-container{
+        
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        /* justify-content: space-evenly; */
+        flex-grow: 1;
+    }
+}
+
+@media only screen and (max-width: 1200px){
+    /*Tablets [601px -> 1200px]*/
+    .featured-products-container{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        /* flex-grow: 1; */
+    }
+}
+@media only screen and (max-width: 1000px){
+	/*Big smartphones [426px -> 600px]*/
+    .featured-products-container{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        /* flex-grow: 1; */
+    }
+}
+@media only screen and (max-width: 425px){
+	/*Small smartphones [325px -> 425px]*/
+}

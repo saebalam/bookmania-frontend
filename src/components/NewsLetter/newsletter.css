@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.newsletter{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2a3645;
+    margin: 10px 0;
+}
+
+.newsletter .left{
+    display: flex;
+    align-items: center;
+    color: white;
+    margin-left: 100px;
+}
+
+.newsletter .right{
+    display: flex;
+    padding: 30px 50px 30px 10px;
+}
+.newsletter .right button{
+    color: white;
+    background-color: black;
+    outline: none;
+    margin: 0;
+    padding: 8px 12px;
+}
+
+.newsletter .right input{
+    width:'230px'
+}
+
+
+@media only screen and (min-width : 700px) and (max-width : 1000px) {
+    .newsletter .right input{
+        width:'150px'
+    }
+}

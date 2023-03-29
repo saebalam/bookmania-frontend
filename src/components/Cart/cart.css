@@ -1,0 +1,120 @@
+.main-div{
+    
+    margin-top: 0px;
+    
+}
+.submain-div{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    /* border: 1px solid black; */
+}
+.submain-div table{
+    box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
+    margin: 2px;
+}
+table{
+    width: auto;
+}
+.cartCard{
+    margin: 10px;
+}
+
+.table-heading th{
+padding: 10px;
+}
+
+.my-list-group-flush{
+    padding: 7px;
+}
+.td0 img{
+    width: 140px;
+    height: 100px;
+    padding: 2px 0;
+}
+
+.td0{
+    padding: 0 20px;
+}
+.td2{
+    padding: 0 60px;
+}
+
+.td3,.td4 {
+    padding: 0px 60px;
+}
+
+.quantity button svg{
+    height: 25px !important;
+    width: 25px !important;
+}
+.removeBtn:hover{
+    color: red;
+    transform: scale(1.2);
+}
+.quantity{
+    display: flex;
+    align-items: center;
+}
+
+.right{
+    margin-left: 40px;
+    padding: 7px;
+}
+
+.coupon{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding: 10px 6px;
+    box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
+}
+.coupon input{
+    width: 150px;
+    height: 34px;
+    margin: 5px 0px;
+}
+.coupon button{
+    padding: 4px 5px;
+}
+.payment{
+    box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
+}
+.payment p{
+    margin-bottom: 2px;
+}
+.payment div{
+    display: flex;
+    padding: 0px 10px;
+    justify-content: space-between;
+}
+
+.purchase{
+    display: flex;
+    justify-content: space-between;
+    margin: 0.8rem 13rem;
+    width: 49%;
+}
+
+@media only screen and (max-width:950px) {
+    .right{
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+@media only screen and (max-width:700px) {
+    .td2,.td3,.td4 {
+        padding: 0px 10px;
+    }
+    .td1 img{
+        width: 70px;
+    }
+
+    .right{
+        display: flex;
+        flex-direction: row;
+    }
+}

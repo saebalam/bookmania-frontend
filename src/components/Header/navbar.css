@@ -1,0 +1,176 @@
+.head-wrapper{
+    transition: all ease-in;
+}
+
+nav{
+    margin-bottom: 0;
+    padding: 2px;
+}
+
+.top-header{
+    padding: 2px 34px;
+    display: flex;
+    justify-content: space-between;
+}
+.top-header .left{
+    display: flex;
+    align-items: center;
+}
+.top-header .left p{
+    margin-bottom: 0;
+}
+.top-header .right{
+    display: flex;
+    gap: 5px;
+}
+
+.nav-right{
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 25px;
+    font-size: 1rem;
+}
+
+.links-icon svg{
+    background-color: black;
+}
+
+.nav-right input,select,button {
+    border: none;
+    outline: none;
+}
+
+.nav-right input{
+    width: 100%;
+    border-right: 1px solid gray;
+}
+
+/* .nav-right div{
+    width: 10rem;
+} */
+
+.nav-link{
+    position: relative;
+}
+
+.nav-link::after{
+    content: "";
+    position: absolute;
+    bottom:0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    transform: scale(0);
+    transition: transform .5s;
+}
+.nav-link:hover::after{
+    transform: scale(1);
+    transition: transform .5s;
+}
+
+.nav-right button{
+    background-color: black;
+    color: wheat;
+    height: 40px;
+    width: 40px;
+    border-radius: 0 50rem 50rem 0;
+    margin: 0;
+}
+/* .nav-right select{
+    background-color: black;
+    color: white;
+} */
+
+.currency,.language{
+    background-color: black;
+    color: white;
+}
+
+nav #search{
+    width: 100vw;
+    margin-right: 5px;
+}
+/* .suggestion-box ul{
+    margin-bottom: 0.6rem;
+    margin-left: 10px;
+    padding-left: 0rem;
+} */
+
+.suggestion-box hr{
+    margin-left: -10px;
+    width: 65rem;
+    margin-top: 9px;
+    margin-bottom: 9px;
+}
+
+
+/* .navbar .form-control{
+    width: 50%;
+    margin-left: 8rem;
+} */
+
+.mynavbardropdown #dropdown-basic::after{
+    margin-left: 0.8rem !important;
+}
+
+#navlink:hover{
+    background-color: #ed4a6f;
+    color: white;
+}
+
+.search-li:hover{
+    color: #ed4a6f;
+    cursor: pointer;
+}
+
+#navbarScroll svg{
+    color: white;
+    border: 1px solid white;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+
+.user-icon-wrapper{
+    position: relative;
+    /* cursor: pointer; */
+}
+
+#navbarScroll .user-modal{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    background-color: white;
+    
+}
+#navbarScroll .user-icon-wrapper:hover .user-modal{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+
+@media only screen and (min-width : 700px) and (max-width : 1000px) {
+    nav #search {
+        width: 65vw;
+        margin-right: 2rem;
+    }
+}
+
+@media only screen and (min-width : 450px) and (max-width : 750px) {
+    nav #search {
+        width: 45vw;
+        margin-right: 2rem;
+    }
+}
+
+@media only screen and (min-width : 300px) and (max-width : 449px) {
+    nav #search {
+        width: 35vw;
+        margin-right: 2rem;
+    }
+}

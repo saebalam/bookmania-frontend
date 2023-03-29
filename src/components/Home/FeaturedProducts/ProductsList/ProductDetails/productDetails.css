@@ -1,0 +1,78 @@
+.head{
+    background-color:rgb(38, 37, 37);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+.mycontainer{
+    padding: 5px 50px;
+}
+.listOfProducts{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.head .deatils_breadcrumb{
+    /* margin-top: '60px'; */
+    /* margin-bottom: '0px'; */
+    color: white !important;
+}
+
+.left{
+    width: '45%';
+    display: 'flex';
+    justify-content: 'space-evenly'
+}
+
+/* for list nav */
+.listview{
+    margin-top: 70px;
+}
+
+.listview ul {
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    list-style-type: none;
+    justify-content: flex-start;
+    padding-left: 30px;
+    gap: 40px;
+    /* border-bottom: 1px solid red; */
+}
+/* .listview ul::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(191, 189, 189);
+} */
+
+.listview ul li{
+    font-weight: 500;
+}
+
+.listview ul li:hover{
+    /* color: black; */
+    border-bottom: 1px solid black;
+    cursor: pointer;
+}
+
+.product_details .active{
+    color: rgb(178, 41, 64);
+    border-bottom: 1px solid black;
+}
+
+.listdata{
+    width: 95vw;
+    padding: 2px 5px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+    
